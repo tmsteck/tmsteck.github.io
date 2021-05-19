@@ -170,12 +170,15 @@ function start(){
   button = true;
   document.getElementById('displayButton').style.opacity  = 0;
   document.getElementById('displayButton2').style.opacity  = 0;
+  document.getElementById('description').style.opacity  = 0;
   poem();
 }
 function startfast(){
   button = true;
   document.getElementById('displayButton').style.opacity  = 0;
   document.getElementById('displayButton2').style.opacity  = 0;
+  document.getElementById('description').style.opacity  = 0;
+
   poem2();
 }
 
@@ -508,7 +511,7 @@ function hslToRgb(h, s, l){
 <body>
   <button type="button" id="displayButton" class="btn btn-info" onclick="start()">Final Poem: Use a speaker or headphones</button>
   <button type="button" id="displayButton2" class="btn btn-info" onclick="startfast()">Broken Timing</button>
-  This work was inspired by <a href="https://nickm.com/taroko_gorge/">Taroko Gorge by Nick Montfort</a>. It is randomly generated. 
+  <p id='description'>This work was inspired by <a href="https://nickm.com/taroko_gorge/">Taroko Gorge by Nick Montfort</a>. It is randomly generated. </p>
 <div style="float:right; margin-top:12px; color:#0b3; height:60pt">
 <div>Thomas Steckmann &middot; 2/25/2020</div>
 </div>
