@@ -2,6 +2,8 @@
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>   
     <link rel='stylesheet' href='style.css'>
 </head>
 
@@ -41,6 +43,9 @@
                                 <a class="nav-link" href="cv">CV</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="blog">Blog</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="#">Quantum Information Club</a>
                             </li>
                         </ul>
@@ -49,8 +54,25 @@
             </nav>
         </div>
 
-
-        <p> Welcome to the main page</p>
+        <!-- Begin Main Page-->
+        <div class="container mx-auto shadow-lg p-3 mb-5 rounded" style="margin-top: 100px; margin-left: 100px; margin-right: 100px; background-color: rgb(199 182 161); ">
+            <span>
+                <img src="Thomas_2020.jpg" alt="Thomas' wonderful face" class="img-thumbnail border border-dark" style="height: 20em; width: auto; white-space: nowrap; float:left; margin:2em;" >
+                <h3 class='text-center'>Welcome! This website is a work in progress, please excuse typos and broken links</h3>
+                <p>  Thomas Steckmann is a physics and mathematics student at North Carolina State University, where he will graduate in Spring 2022. This webpage is intended to be a way of hosting my professional work in quantum computing and organic electronics development. 
+                    I intend to enroll in a physics Ph.D. program after graduating from NC State with a focus on quantum computing, specifically on bridging the gap between understanding about the power of quantum computers in key physical applications. For the foreseeable future, quantum computers will be 
+                    limited by contraints on the capacity of the computing hardware. Thus, now and in the future, to get the most out of quantum computers and realize the research and industrial applications as soon as possible, I focus on understanding and developing applicaitons for quantum computers in physics
+                    that will minimize resource applications. This work, which is summarized in the "Quantum Computing" portion of the projects tab above, is the focus of my work at Oak Ridge National Labs in Summer 2020 and 2021, and also the Honors Capstone project I am completing at NC State with Dr. Lex Kemper at the physics department.
+                </p>
+            </span>
+            <p> 
+                Additionally, I have worked with Dr. Harald Ade and Dr. Abay Gadisa at NC State on efficient fabrication methods for organic field effect transitors, which are electronic devices designed using organic materials such as plastics and polymers instead of traditional semi-conducting materials such as silicon. 
+                Although organic electronics are not yet as effective as traditional solid-state electronics, they have key potential benefits in being easy to fabricate on a massive scale, being relatively cheap in terms of material and processing costs, being near totally transparent, and being highly flexible. These main advantages are 
+                emphasised in ultrathin film devices, which are organic field effect transistors with a very thin active layer of polymer, down 1-4 layers of molecules.  However, for many materials ultrathin film devices suffer a performance cost, meaning although they are cheaper, more transparent, and more flexible than thicker devices they are 
+                less desirable to research or manufacture because of the limited performance. By applying a method known as floating film transfer, we were able to realize high performance ultrathin devices using highly accessible and efficient fabrication methods. For more information about this project, check out the OFET tab in the navigation. 
+            </p>
+        </div>
+        
 
         
     </body>
