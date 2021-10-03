@@ -3,6 +3,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     <link rel='stylesheet' href='style.css'>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 
 
@@ -49,25 +51,53 @@
             </nav>
         </div>
         <div class="container mx-auto shadow-lg p-3 mb-5 rounded" style="margin-top: 100px; margin-left: 100px; margin-right: 100px; background-color: rgb(199 182 161); ">
-            <p>My work at Oak Ridge National Labs in the Summer of 2020 with Dr. Eugene Dumitrescu and at NC State with Dr. Lex Kemper is focused on 
-                efficient gate decompositions for hamiltonian simulation. This work, currently in review and available on ArXiv, adapts algorithms for universal decomposition of unitary operators
-                into quantum gates in order to produce efficient circuit implementations of unitary time evolution operators for systems with a certain type of Hamiltonian. The method is demonstrated in comparison to 
-                Trotter based methods in optimial conditions, demonstrating that is provides a clear advantage for systems which can be modelled as non-interacting fermions on a 1D lattice. Continuing work explores the applications of this method,
-                which is a Cartan Decomposition of the smallest Lie Algebra which contains the vector space spanned by the operators which compose the Hamiltonian, 
-                
+            <h3> Cartan Decomposition as a means of Hamiltonian Simulation</h3>
+            <p> My work from 2020-present is focused developing methods for efficient Hamiltonian Simulation on quantum computers. Beginning during a SULI internship
+                at Oak Ridge National Labs and under the supervision of Dr. Eugene Dumitrescu, I developed the framework for applying Cartan decomposition to Hamiltonian Simulation. 
+                As originally formulated in the literature, Cartan decomposition is formulated as a means of producing an efficient gate decomposition of an arbitrary unitary operator on n-qubits. 
+                However, this problem is generally has a two-qubit gate cost scaling as $$\mathcal{O}(4&^n)$$, which means it is not generally useful for gates larger than 4-5 qubits. 
+                A key contribution of our work in this area is the reduction of this scaling cost for certain types of Hamiltonian for fermionic and spin systems. Specifically,
+                for the XY and Ising type 1D models, we use Cartan decomposition to efficiently prepare a fast-forwarding circuit that is numerically exact for any input time t. In these cases,
+                compared to Trotter based methods, Cartan decomposition allows for simulations beyond the coherence times of the quantum computer and uses far fewer gates for long-time simulations. 
+
+                The paper is currently published on arXiv, and is in review. This page will be updated if the paper is accepted for publication. 
+
+                <p> Efekan Kökcü, Thomas Steckmann, JK Freericks, Eugene F Dumitrescu, and Alexander F Kemper, “Fixed depth hamiltonian simulation via cartan decomposition,”  (2021) <a href="https://arxiv.org/abs/2104.00728">arXiv preprint arXiv:2104.00728 </a> </p>
+                <div class='container-md' width = "90%">
+                <embed class="border" src="Fixed_Depth_Hamiltonian_Simulation_via_Cartan_Decomposition.pdf" width="100%" height="480px" /></div>
+            <h3>Cartan Quantum Synthesizer</h3>
+            <p>In order to make our work on Cartan Decompositon more accessible to other areas of application, I developed and published the Cartan Quantum Synthesizer 
+                python package. The package performs 3 primary steps:
+                <ol>
+                    <li> <b>Generate a Hamiltonian as a sum of Pauli Strings</b> We provide functions to generate that Hamiltonians used in our paper, but also incorporate methods for using Hamiltonians generated using other
+                    packages such as OpenFermion.</li>
+                    <li> <b> Compute the Hamiltonian Algebra and perform a Cartan Decomposition</b>A key step in applying Cartan Decomposition to Hamiltonian Simulation is reducing the space of operators to decompose. Starting from the Hamiltonian Operator, we apply 
+                    repeated commutator operations to the Pauli basis elements which compose the Hamiltonian. This procedure is repeated until there are now more terms generated, we we call
+                    this new closed Lie algebra the Hamiltonian sub-algebra. It represents all the operators which can be generated through the decomposition of the exponential using the Baker-Campbell-Hausdorff equation. 
+                    We then apply a Cartan Decomposition, which splits the Hamiltonian Algebra. </li>
+                    <li><b>Generate the Rotation Angles in the Decomposed Circuit</b> From the Cartan decomposition, we can produce an ansatz which contains the exponential circuit aim to implement. We can then compute the parameters of the ansatz using a classical algorithm
+                    to minimize a cost function over the Hamiltonian sub-algebra.  </li>
+                </ol>
+                The Python package can be found here: <a href='https://github.com/kemperlab/cartan-quantum-synthesizer'> Cartan Quantum Synthesizer</a>
             </p>
-            <object data="Fixed_Depth_Hamiltonian_Simulation_via_Cartan_Decomposition.pdf" type="application/pdf" width="100%" height="800px"> 
-                <p>It appears you don't have a PDF plugin for this browser.
-                 No biggie... you can <a href="Fixed_Depth_Hamiltonian_Simulation_via_Cartan_Decomposition.pdf">click here to
-                download the PDF file.</a></p>  
-            </object>
-            <p> Efekan Kökcü, Thomas Steckmann, JK Freericks, Eugene F Dumitrescu, and Alexander F Kemper, “Fixed depth hamiltonian simulation via cartan decomposition,”  (2021) <a href="https://arxiv.org/abs/2104.00728">arXiv preprint arXiv:2104.00728 </a> </p>
-            <div class='container-md' width = "90%">
-            <embed class="border" src="Fixed_Depth_Hamiltonian_Simulation_via_Cartan_Decomposition.pdf" width="100%" height="480px" /></div>
-            <p>The immediate follow-up to the work with Cartan Decompsition is the implementation of the algorithm in simulating the Hubbard Model and the Anderson Impurity Model using Dynamical mean Field Theory. This work is currently in progress
+            <h3> Cartan Decomposition Applied to Dynamical Mean-Field Theory</h3>
+                <p>
+                My current work aims to apply Cartan decomposition to a dynamical mean-field calculation for the Hubbard model. The primary goal is to explore methods of minimizing circuit cost for a calculation
+                on the two-site DMFT model, which approximates the dynamics of a Hubbard model of interacting electrons on an infinite dimensional lattice. Using Cartan decomposition, we are able to reduce the 
+                gate cost of the simulation to below the usable threshold for current superconducting quantum hardware from IBM. The DMFT calculation maps the Hubbard model the Anderson Impurity model, in this cases
+                consisting of a single impurity site coupled to a single bath site. Using a quantum computer, we compute Green's function for the Anderson model with an initial guess of the mapped parameters: an initial guess gives a better
+                guess for the next computation, which is again run on a quantum computer. This is run until the updated parameters converge to the initial guess. Cartan Decomposition is used to time evolve the system to compute Green's function at different times. 
+
+                Two things of note in the calculation is that Cartan decomposition detaches the circuit error from the simulation time, because it is a circuit to 
+                fast-forward the dynamics of the calculation. This means that even through there is significant error within the simulation, the in most cases the error does not disguise the frequencies present in the Green's function calculation. As these frequencies 
+                are all that is needed to update the DMFT guess, we are able to iterate the loop even though the quantum system has significantly decohered. Second, this method is used to demonstrate the application of Cartan decomposition and to stretch the capabilities of current hardware.
+                The circuit form used in this work scales exponentially in cost with the number of qubits, meaning it is not generally useful for simulating large systems. Additional work is needed to understand if Cartan decomposition can be truncated efficiently in these cases.
                 </p>
-            <p>The paper below, written as part of a course on the mathematics of quantum computing, focuses on algorithms for decompositing arbitrary unitary matrices into a quantum circuit. The paper focuses on the implementation of methods for generating circuits with few qubits, as all such algorithms have an exponential cost with system size. The methods in this paper were the motivation for my work on Cartan Decomposition</p>
-            <embed class="border" src="Universal_Gate_Decomposition.pdf" width="100%" height="480px" />
+
+                <p>This work is in the final stages of preparation for publication, with the aim of publishing to ArXiv by the end of October 2021. This page will be updated at the time.  </p>
+                <p>For now, here is the final SULI report I wrote on the method. Since writing this report, we have applied additional simplifications to the circuit to reduce the CNOT counts.</p>
+                <div class='container-md' width = "90%">
+                    <embed class="border" src="Steckmann_Thomas_CSED_report.pdf" width="100%" height="480px" /></div>
         </div>
     </body>
 </html>
