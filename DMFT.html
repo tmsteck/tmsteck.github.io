@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Thomas Steckmann</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel='stylesheet' href='style.css'>
+</head>
+
+
+<html>
+
+<body>
+    <div class="top-bar">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+
+                <a class="navbar-brand">Thomas Steckmann</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="http://www.thomassteckmann.com/">Home</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Portfolio
+                            </a>
+                            <ul class="dropdown-menu" style="padding-top: 0;" aria-labelledby="navbarDropdown">
+                                <li class="container-fluid" style='background-color: lightgray; text-align: center;'>
+                                    <div class="mx-auto">Research </div>
+                                </li>
+                                <li><a class="dropdown-item" href="quantum.html">Quantum Computing</a></li>
+                                <li><a class="dropdown-item" href="ofet.html">Organic Electronics</a></li>
+                                <li class="container-fluid" style='background-color: lightgray; text-align: center;'>
+                                    <div class="mx-auto">Projects </div>
+                                </li>
+                                <li><a class="dropdown-item" href="hackathons.html">Quantum Projects</a></li>
+                                <li><a class="dropdown-item" href="cryptography.html">Crytopgraphy</a></li>
+                                <li><a class="dropdown-item" href="symphony.html">Poetry</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Thomas_Steckmann_Resume_2021.pdf">CV</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://quantuminformationclub.wordpress.ncsu.edu/">Quantum
+                                Information Club</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Begin Main Page-->
+    <div class="container mx-auto shadow-lg p-3 mb-5 rounded"
+        style="margin-top: 100px; margin-left: 100px; margin-right: 100px; background-color: rgb(199 182 161); ">
+        <h3>
+            Simulating the Mott transition on a noisy digital quantum computer via Cartan-based fast-forwarding circuits
+        </h3>
+        <p>
+            Abstract:
+        </p>
+        <p>
+            Dynamical mean-field theory (DMFT) maps the local Green’s function of the Hubbard model to that of the Anderson impurity
+            model and thus gives an approximate solution of the Hubbard model by solving the simpler quantum impurity model. Quantum
+            and hybrid quantum-classical algorithms have been proposed to efficiently solve impurity models by preparing and
+            evolving the ground state under the impurity Hamiltonian on a quantum computer instead of using intractable classical
+            algorithms. We propose a highly optimized fast-forwarding quantum circuit to significantly improve quantum algorithms
+            for the minimal DMFT problem preserving the Mott phase transition. Our Cartan decomposition based algorithm uses a fixed
+            depth quantum circuit to eliminate time-discretization errors and evolve the initial state over <em>arbitrary</em> times.
+            Exploiting the structure of the fast-forwarding circuits, we sufficiently reduce the gate cost to simulate the dynamics
+            of, and extract frequencies from, the Anderson impurity model on noisy quantum hardware and demonstrate the Mott
+            transition by mapping the phase-diagram of the corresponding impurity problem. Especially near the Mott phase transition
+            when the quasiparticle resonance frequency converges to zero and evolving the system over long-time scales is necessary,
+            our method maintains accuracy where Trotter error would otherwise dominate. This work presents the first computation of
+            the Mott phase transition using noisy digital quantum hardware, made viable by a highly optimized computation in terms
+            of gate depth, simulation error, and run-time on quantum hardware. The combination of algebraic circuit decompositions
+            and model specific error mitigation techniques used may have applications extending beyond our use case to solving
+            correlated electronic phenomena on noisy quantum computers.
+        </p>
+        <p>
+            The paper is not yet available on arXiv. The link will be included below once the paper is published, expected before December 15th.
+        </p>
+    </div>
+    </div>
+</body>
+
+</html>
+<!-- <embed src="Universal_Gate_Decomposition.pdf" width="800px" height="2100px" /> -->
