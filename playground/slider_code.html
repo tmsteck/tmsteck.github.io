@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <style>
+    .panel {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      z-index: 999;
+    }
+  </style>
+</head>
+<body>
+  <a href="#" id="show-panel-button">Show Panel</a>
+
+  <div id="panel" class="panel card">
+    <div class="panel-body card-body">
+      <h3>Title</h3>
+      <p><a href="#">Author</a></p>
+      <p><a id="closePanel">Close Panel</a></p>
+      <p>Abstract text goes here...</p>
+    </div>
+  </div>
+
+
+  <script>
+    // Set the API key and the query parameters for the request
+    var apiKey = 'tmsteckm@gmail.com';
+    var query = 'Georges A, Kotliar G, Krauth W and Rozenberg M J 1996 Rev. Mod. Phys. 68 13';
+
+    // Set the request options
+    var options = {
+    method: 'GET',
+    url: 'https://api.crossref.org/works/?query.bibliographic={}?select=DOI,URL,abstract,author,title,created$rows=1'.replace('{}', query),
+    qs: {
+        //query: query,
+        mailto: apiKey
+    },
+    json: true
+    };
+
+    // Send the request
+    function sendRequest(){
+        // Send the request
+        fetch(options.url, {
+            method: options.method,
+            qs: options.qs,
+        })
+        .then(response => response.json())
+        .then(json => {
+            console.log(json)
+            output = {
+                'title': json['message']['items'][0]['title'][0],
+                'authorList': json['message']['items'][0]['author'],
+                'abstract': json['message']['items'][0]['abstract'],
+                'doi': json['message']['items'][0]['DOI'],
+                'year': json['message']['items'][0]['created']['date-parts'][0][0],
+                'url': json['message']['items'][0]['URL']
+            }
+            console.log(output)
+            return output
+        })
+        
+        
+    };
+
+        
+  </script>
+
+  <script>
+    var panelClose = document.getElementById('closePanel');
+    var panel = document.getElementById('panel');
+    var showPanelButton = document.getElementById('show-panel-button');
+
+    showPanelButton.addEventListener('click', function(e) {
+      sendRequest()
+      e.preventDefault();
+      panel.style.display = 'block';
+    });
+
+    panelClose.addEventListener('click', function(e) {
+      panel.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
