@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Colorful Webpage</title>
+    <style>
+        @keyframes colorChange {
+            0% {background: red;}
+            25% {background: orange;}
+            50% {background: yellow;}
+            75% {background: green;}
+            100% {background: blue;}
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f06, yellow);
+            background-size: 200% 200%;
+            animation: colorChange 10s infinite linear;
+            padding: 20px;
+            color: #fff;
+        }
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 0 auto;
+            animation: spin 5s infinite linear;
+        }
+        @keyframes spin {
+            0% {transform: rotate(0deg);}
+            100% {transform: rotate(360deg);}
+        }
+        p {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <img src="Nice_try.jpg" alt="Nice try">
+    <p>But for real, feel free to email me if you want to be removed form the mailing list. I won't be offended!</p>
+</body>
+</html>
