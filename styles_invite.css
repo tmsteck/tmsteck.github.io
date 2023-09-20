@@ -1,0 +1,49 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.bouncing-text-container {
+    background-color: #333;
+    color: #fff;
+    font-size: 24px;
+    padding: 10px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    overflow: hidden;
+    animation: bounceText 40s linear infinite; /* Adjust the duration as needed */
+}
+
+.bouncing-text {
+    white-space: nowrap;
+    animation: scrollText 1000s ease-out infinite alternate; /* Adjust the duration as needed */
+}
+
+@keyframes bounceText {
+    0%, 100% {
+        transform: translateY(500px);
+    }
+    50% {
+        transform: translateY(0px); /* Adjust the bounce height as needed */
+    }
+}
+
+@keyframes scrollText {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-10000%);
+    }
+}
+
+p {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    margin-right: 20px; /* Adjust this value to control the speed of scrolling */
+}
