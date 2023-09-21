@@ -20,7 +20,7 @@ body {
 
 .bouncing-text {
     white-space: nowrap;
-    animation: scrollText 1000s ease-out infinite alternate; /* Adjust the duration as needed */
+    animation: scrollText 10000s ease-out infinite alternate; /* Adjust the duration as needed */
 }
 
 @keyframes bounceText {
