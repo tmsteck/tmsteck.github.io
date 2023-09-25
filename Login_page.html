@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invite Platform Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            transition: height 0.3s;
+        }
+
+        input[type="password"]:focus {
+            height: 150px; /* Adjust this value as needed */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Expandable Password Form</h1>
+        <form>
+            <label for="username">Email:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Create a Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <!-- Additional input fields (hidden by default) -->
+            <label for="field1">Mother's Maiden Name</label>
+            <input type="text" id="field1" name="field1" style="display: none;">
+
+            <label for="field2">Name of your Third Grade Teacher</label>
+            <input type="text" id="field2" name="field2" style="display: none;">
+        </form>
+    </div>
+
+    <script>
+        const passwordInput = document.getElementById('password');
+        const additionalFields = document.querySelectorAll('[id^="field"]');
+        
+        passwordInput.addEventListener('input', () => {
+            additionalFields.forEach((field, index) => {
+                if (index < passwordInput.value.length) {
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
