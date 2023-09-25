@@ -63,20 +63,26 @@
             <label for="2field1" id="2field1l" style="display: none;">Dietary Preferences</label>
             <input type="text" id="2field1" name="2field1" style="display: none;">
 
-            <label for="2field2" id="2field2l" style="display: none;">Name of your Third Grade Teacher</label>
+            <label for="2field2" id="2field2l" style="display: none;">Favorite Board Game</label>
             <input type="text" id="2field2" name="2field2" style="display: none;">
 
-            <label for="3field1" id="3field1l" style="display: none;">Name of your First Pet</label>
+            <label for="3field1" id="3field1l" style="display: none;">Name of Your First Pet</label>
             <input type="text" id="3field1" name="3field1" style="display: none;">
 
-            <label for="3field2" id="3field2l" style="display: none;">Name of your Favorite Movie</label>
+            <label for="3field2" id="3field2l" style="display: none;">Name of Your Favorite Movie</label>
             <input type="text" id="3field2" name="3field2" style="display: none;">
 
-            <label for="4field1" id="4field1l" style="display: none;">Social Security Number</label>
+            <label for="4field1" id="4field1l" style="display: none;">Name of Your Favorite Teacher</label>
             <input type="text" id="4field1" name="4field1" style="display: none;">
 
-            <label for="4field2" id="4field2l "style="display: none;">Closest Kept Secret</label>
+            <label for="4field2" id="4field2l" style="display: none;">Street You Lived on in Third Grade</label>
             <input type="text" id="4field2" name="4field2" style="display: none;">
+
+            <label for="5field1" id="5field1l" style="display: none;">Social Security Number</label>
+            <input type="text" id="5field1" name="5field1" style="display: none;">
+
+            <label for="5field2" id="5field2l "style="display: none;">Closest Kept Secret</label>
+            <input type="text" id="5field2" name="5field2" style="display: none;">
 
 
         </form>
@@ -86,15 +92,17 @@
         const passwordInput = document.getElementById('password');
         const TwofieldInput = document.getElementById('2field2');
         const ThreefieldInput = document.getElementById('3field2');
+        const FourfieldInput = document.getElementById('4field2');
         const additionalFields = document.querySelectorAll('[id^="field"]');
         const Twofield = document.querySelectorAll('[id^="2field"]');
         const Threefield = document.querySelectorAll('[id^="3field"]');
         const Fourfield = document.querySelectorAll('[id^="4field"]');
+        const Fivefield = document.querySelectorAll('[id^="5field"]');
 
         
         passwordInput.addEventListener('input', () => {
             Twofield.forEach((field, index) => {
-                if (index < passwordInput.value.length) {
+                if (passwordInput.value.length > 1) {
                     field.style.display = 'block';
                 } else {
                     field.style.display = 'none';
@@ -103,7 +111,7 @@
         });
         TwofieldInput.addEventListener('input', () => {
             Threefield.forEach((field, index) => {
-                if (index < TwofieldInput.value.length) {
+                if (1 < TwofieldInput.value.length) {
                     field.style.display = 'block';
                 } else {
                     field.style.display = 'none';
@@ -112,7 +120,16 @@
         });
         ThreefieldInput.addEventListener('input', () => {
             Fourfield.forEach((field, index) => {
-                if (index < ThreefieldInput.value.length) {
+                if (1 < ThreefieldInput.value.length) {
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            });
+        });
+        FourfieldInput.addEventListener('input', () => {
+            Fivefield.forEach((field, index) => {
+                if (1 < FourfieldInput.value.length) {
                     field.style.display = 'block';
                 } else {
                     field.style.display = 'none';
