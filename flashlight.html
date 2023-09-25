@@ -13,18 +13,26 @@
             color: white;
             /*cursor: none; */
         }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 2; /* Place it above other elements */
+        }
 
         #flashlight {
             position: absolute;
             width: 150px;
             height: 150px;
-            background: radial-gradient(circle, Transparent -50%, Yellow 500%);/* Yellow inside with transparency */
+            background: radial-gradient(circle, transparent -50%, yellow 500%);/* Yellow inside with transparency */
             border: 3000px solid black;
             border-radius: 50%;
             pointer-events: none;
             z-index: 1;
         }
-
 
         #content {
             position: absolute;
@@ -43,6 +51,7 @@
 </head>
 <body>
     <div id="flashlight"></div>
+    <div class="overlay" id="overlay"></div>
     <div id="content">
         <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -51,15 +60,36 @@
 
     <script>
         const flashlight = document.getElementById('flashlight');
+        const overlay = document.getElementById('overlay');
         const content = document.getElementById('content');
 
+        let interactionOccurred = false;
+
+        function removeOverlay() {
+            if (!interactionOccurred) {
+                overlay.style.display = 'none';
+                interactionOccurred = true;
+            }
+        }
+
+        document.addEventListener('touchmove', (e) => {
+            removeOverlay();
+            moveOverlay(e);
+        });
+
+        // Check for mousemove events on desktop
         document.addEventListener('mousemove', (e) => {
+            removeOverlay();
+            moveOverlay(e);
+        });
+        
+        function moveOverlay(e) {
             const x = e.clientX;
             const y = e.clientY;
 
             flashlight.style.left = x - 3075 + 'px';
-            flashlight.style.top = y - 3075+ 'px';
-        });
+            flashlight.style.top = y - 3075 + 'px';
+        }
     </script>
 </body>
 </html>
