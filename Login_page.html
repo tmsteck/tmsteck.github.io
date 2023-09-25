@@ -35,13 +35,16 @@
         }
 
         input[type="password"]:focus {
-            height: 150px; /* Adjust this value as needed */
+            height: 25px; /* Adjust this value as needed */
+        }
+        input[type="text"]:focus {
+            height: 25px; /* Adjust this value as needed */
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Expandable Password Form</h1>
+        <h1>Invite Page Login</h1>
         <form>
             <label for="username">Email:</label>
             <input type="text" id="username" name="username" required>
@@ -50,29 +53,29 @@
             <input type="password" id="password" name="password" required>
 
             <!-- Additional input fields (hidden by default) -->
-            <label for="field1">Address</label>
+            <label for="field1" style="display: none;">Address</label>
             <input type="text" id="field1" name="field1" style="display: none;">
 
-            <label for="field2">Phone Number</label>
+            <label for="field2" style="display: none;">Phone Number</label>
             <input type="text" id="field2" name="field2" style="display: none;">
 
             <!-- Additional input fields (hidden by default) -->
-            <label for="2field1">Dietary Preferences</label>
+            <label for="2field1" style="display: none;">Dietary Preferences</label>
             <input type="text" id="2field1" name="2field1" style="display: none;">
 
-            <label for="2field2">Name of your Third Grade Teacher</label>
+            <label for="2field2" style="display: none;">Name of your Third Grade Teacher</label>
             <input type="text" id="2field2" name="2field2" style="display: none;">
 
-            <label for="3field1">Name of your First Pet</label>
+            <label for="3field1" style="display: none;">Name of your First Pet</label>
             <input type="text" id="3field1" name="3field1" style="display: none;">
 
-            <label for="3field2">Name of your Favorite Movie</label>
+            <label for="3field2" style="display: none;">Name of your Favorite Movie</label>
             <input type="text" id="3field2" name="3field2" style="display: none;">
 
-            <label for="4field1">Social Security Number</label>
+            <label for="4field1" style="display: none;">Social Security Number</label>
             <input type="text" id="4field1" name="4field1" style="display: none;">
 
-            <label for="4field2">Closest Kept Secret</label>
+            <label for="4field2" style="display: none;">Closest Kept Secret</label>
             <input type="text" id="4field2" name="4field2" style="display: none;">
 
 
@@ -81,11 +84,35 @@
 
     <script>
         const passwordInput = document.getElementById('password');
+        const TwofieldInput = document.getElementById('2field2');
+        const ThreefieldInput = document.getElementById('3field2');
         const additionalFields = document.querySelectorAll('[id^="field"]');
+        const Twofield = document.querySelectorAll('[id^="2field"]');
+        const Threefield = document.querySelectorAll('[id^="3field"]');
+        const Fourfield = document.querySelectorAll('[id^="4field"]');
+
         
         passwordInput.addEventListener('input', () => {
-            additionalFields.forEach((field, index) => {
+            Twofield.forEach((field, index) => {
                 if (index < passwordInput.value.length) {
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            });
+        });
+        TwofieldInput.addEventListener('input', () => {
+            Threefield.forEach((field, index) => {
+                if (index < TwofieldInput.value.length) {
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            });
+        });
+        ThreefieldInput.addEventListener('input', () => {
+            Fourfield.forEach((field, index) => {
+                if (index < ThreefieldInput.value.length) {
                     field.style.display = 'block';
                 } else {
                     field.style.display = 'none';
