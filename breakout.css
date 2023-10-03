@@ -1,0 +1,56 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+  }
+  
+  #game-container {
+    position: relative;
+    width: 640px; /* Increased width to add space around the edge of the blocks */
+    height: 640px; /* Increased height to add space around the edge of the blocks */
+    border: 2px solid #333;
+    overflow: hidden;
+    margin-top: 20px; /* Added space at the top */
+    margin-left: 20px; /* Added space at the left */
+  }
+  
+  #paddle {
+    position: absolute;
+    bottom: 0;
+    width: 80px;
+    height: 10px;
+    background-color: #3498db;
+  }
+  
+  .box {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #2ecc71;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    border: 1px solid #000;
+  }
+  
+  #ball {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #e74c3c;
+    border-radius: 50%;
+  }
+  
+  #velocitySlider {
+    margin-top: 10px;
+  }
+  
+  #toggleGameOver {
+    margin-top: 10px;
+  }
+  

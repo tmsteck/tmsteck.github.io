@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordered Text Blocks with Random Sizes and Positions</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+        }
+
+        /* Define a class for the text blocks */
+        .text-block {
+            position: absolute;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Generate example Lorem Ipsum text
+        const loremIpsum = `
+        Hey all,
+Back to normal this week. 7211 Adelphi Rd, Hyattsville Md. Starts Saturday 5pm, ends about 12am. Arrive late, leave early as needed. I'll have some snacks and drinks, feel free to bring whatever you are inclined to. We'll probably order takeout around 8-9pm. 
+
+Letting me know if you will be there is always helpful for planning food/picking games
+
+See (some) of you Saturday!
+-Thomas
+(919)-964-1644
+        `;
+
+        // Split the Lorem Ipsum text into words
+        const loremWords = loremIpsum.split(/\s+/);
+
+        // Generate random positions for the text blocks
+        function generateRandomPositions(numPositions) {
+            const positions = [];
+            for (let i = 0; i < numPositions; i++) {
+                const randomX = Math.floor(Math.random() * window.innerWidth);
+                const randomY = Math.floor(Math.random() * window.innerHeight);
+                positions.push({ x: randomX, y: randomY });
+            }
+            return positions;
+        }
+
+        // Generate a random number of words between 2 and 7 for each block
+        function generateRandomTextBlocks() {
+            const textBlocks = [];
+            let currentBlock = '';
+            const numBlocks = loremWords.length;
+
+            for (let i = 0; i < numBlocks; i++) {
+                const blockSize = Math.floor(Math.random() * 6) + 2; // Random between 2 and 7 words
+                const blockWords = loremWords.slice(i, i + blockSize).join(' ');
+                textBlocks.push(blockWords);
+                i += blockSize - 1;
+            }
+
+            return textBlocks;
+        }
+
+        // Function to create and position text blocks
+        function createOrderedTextBlocks() {
+            // Generate random positions for the text blocks
+            const randomPositions = generateRandomPositions(loremWords.length);
+
+            // Generate random-sized text blocks
+            const textBlocks = generateRandomTextBlocks();
+
+            // Initialize variables for positioning
+            const spacing = 50; // Vertical spacing
+
+            // Find the top-left point
+            let minY = Number.MAX_SAFE_INTEGER;
+            for (const position of randomPositions) {
+                minY = Math.min(minY, position.y);
+            }
+
+            // Initialize the starting point
+            let currentX = 0;
+            let currentY = minY;
+
+            // Iterate through the text blocks and create text elements
+            for (let i = 0; i < textBlocks.length; i++) {
+                // Create a new div element for the text block
+                const textElement = document.createElement('div');
+                textElement.classList.add('text-block'); // Apply the CSS class
+                textElement.textContent = textBlocks[i];
+
+                // Set the position of the text block based on the generated coordinates
+                textElement.style.left = `${randomPositions[i].x}px`;
+                textElement.style.top = `${currentY}px`;
+
+                // Append the text block to the body
+                document.body.appendChild(textElement);
+
+                // Move down vertically (spacing) for the next block
+                currentY += spacing;
+
+                // If it goes beyond the window height, reset Y and move to the next X position
+                if (currentY >= window.innerHeight) {
+                    currentY = minY;
+                    currentX += 100; // Horizontal spacing
+                }
+            }
+        }
+
+        // Call the function to create ordered text blocks with random sizes and positions
+        createOrderedTextBlocks();
+    </script>
+</body>
+</html>

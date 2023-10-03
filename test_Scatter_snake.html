@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordered Text Blocks with Random Sizes and Positions</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+        }
+
+        /* Define a class for the text blocks */
+        .text-block {
+            position: absolute;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Generate example text as a list of numbers separated by spaces
+        const exampleText = "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
+
+        // Split the example text into sets of 2-5 words each
+        const textBlocks = exampleText.match(/\d+\s+\d+\s+\d+/g);
+
+        // Function to generate random positions with a buffer
+        function generateRandomPositions(numPositions) {
+            const positions = [];
+            const bufferX = 50; // Buffer on the right
+            const bufferY = 50; // Buffer at the bottom
+
+            for (let i = 0; i < numPositions; i++) {
+                const randomX = Math.floor(Math.random() * (window.innerWidth - bufferX));
+                const randomY = Math.floor(Math.random() * (window.innerHeight - bufferY));
+                positions.push({ x: randomX, y: randomY });
+            }
+            return positions;
+        }
+
+        // Function to find the nearest point that is not in the list
+        function findNearestPoint(currentPoint, pointList) {
+            let nearestPoint = null;
+            let minDistance = Number.MAX_SAFE_INTEGER;
+
+            for (const point of pointList) {
+                const distance = Math.sqrt(
+                    Math.pow(currentPoint.x - point.x, 2) +
+                    Math.pow(currentPoint.y - point.y, 2)
+                );
+
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    nearestPoint = point;
+                }
+            }
+
+            return nearestPoint;
+        }
+
+        // Function to create and position text blocks
+        function createOrderedTextBlocks() {
+            // Generate random positions with a buffer for the text blocks
+            const randomPositions = generateRandomPositions(textBlocks.length);
+
+            // Initialize variables for positioning
+            const textElements = [];
+            const spacing = 100; // Vertical spacing
+
+            // Find the top-left point
+            let minY = Number.MAX_SAFE_INTEGER;
+            for (const position of randomPositions) {
+                minY = Math.min(minY, position.y);
+            }
+
+            // Initialize the starting point as the top-left point
+            const startingPoint = randomPositions.find(point => point.y === minY);
+            const orderedPoints = [startingPoint];
+
+            // Find the nearest point to the previously found point until all points are assigned
+            while (orderedPoints.length < randomPositions.length) {
+                const lastPoint = orderedPoints[orderedPoints.length - 1];
+                const nearestPoint = findNearestPoint(lastPoint, randomPositions.filter(p => !orderedPoints.includes(p)));
+                orderedPoints.push(nearestPoint);
+            }
+
+            // Iterate through the text blocks and create text elements
+            for (let i = 0; i < textBlocks.length; i++) {
+                // Create a new div element for the text block
+                const textElement = document.createElement('div');
+                textElement.classList.add('text-block'); // Apply the CSS class
+
+                // Randomly determine the length of the text block (2-5 words)
+                const blockLength = Math.floor(Math.random() * 4) + 2;
+                const blockWords = textBlocks.slice(i, i + blockLength).join(' ');
+                textElement.textContent = blockWords;
+
+                // Set the position of the text block based on the ordered points
+                textElement.style.left = `${orderedPoints[i].x}px`;
+                textElement.style.top = `${orderedPoints[i].y}px`;
+
+                // Append the text block to the body
+                document.body.appendChild(textElement);
+            }
+        }
+
+        // Call the function to create ordered text blocks with random sizes and positions
+        createOrderedTextBlocks();
+    </script>
+</body>
+</html>
