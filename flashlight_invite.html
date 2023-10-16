@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+            cursor: none;
+        }
+
+        #circle {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, transparent -50%, yellow 500%);/* Yellow inside with transparency */
+            outline: 10000px solid black;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .cover {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 2; /* Place it above other elemen  ts */
+        }
+        .image {
+        width: 5vw;
+        position: fixed;
+        top: 0;
+        left: 0;
+        cursor: pointer;
+        }
+
+        #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: none;
+        z-index: 9999;
+        }
+
+        #large-image {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        cursor: pointer;
+        }
+
+        .text {
+            position: absolute;
+            white-space: nowrap;
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
+            pointer-events: none;
+        }
+
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <img src="images/small_filler.jpeg" alt="30mins" class="image" style="opacity: 0;" id="holder">
+    <div id="overlay">
+        <img src="images/jeffery.jpeg" alt="Large Image" id="large-image">
+      </div>
+      <div class="cover" id="cover"></div>
+
+    
+    <script>
+        const cover = document.getElementById('cover');
+
+        // Sample text
+        const textBlocks_1 = [
+            "Lorem ipsum dolor sit",
+            "amet, consectetur adipiscing",
+            "elit. Sed do eiusmod",
+            "tempor incididunt ut labore",
+            "et dolore magna aliqua.",
+            "1",
+            "2",
+            "3"
+        ];
+
+        function splitString(str) {
+            const words = str.split(' ');
+            const result = [];
+
+            for (let i = 0; i < words.length; i += 3) {
+                const chunk = words.slice(i, i + 3 + Math.floor(Math.random() * 3)).join(' ');
+                result.push(chunk);
+            }
+
+            return result;
+        }
+        const longString = "In this example, we're using the split() method to split the input string into an array of words. We're then iterating over the array of words in chunks of 3-5 words using a for loop. Inside the loop, we're using the slice() method to extract a chunk of 3-5 words from the array, and the join() method to join the words back into a single string. We're then pushing the resulting string into a result array. Finally, we're returning the result array containing the list of strings containing 3-5 words.";
+        const textBlocks = splitString(longString);
+        //textBlocks = result
+        function addimageHolder(){
+            const image = document.getElementById('holder');
+            const maxX = window.innerWidth - image.clientWidth;
+            const maxY = window.innerHeight - image.clientHeight;
+            image.style.left = Math.floor(Math.random() * maxX) + 'px';
+            image.style.top = Math.floor(Math.random() * maxY) + 'px';
+            image.style.opacity = 1;
+        }
+
+        const imageNames = ['30mins.jpeg','error_mitigation.jpeg', 'jeffery.jpeg', 'door.jpeg', 'magik.jpeg'];
+        const textDivs = [];
+        //Iterate through the text blocks
+        for (let i=0; i<textBlocks.length; i++){
+            const text = document.createElement('div');
+            text.className = 'text';
+            text.textContent = textBlocks[i];
+            document.body.appendChild(text);
+            text.index = i;
+            textDivs.push(text);
+            text.style.opacity = 0;
+            text.found = false;
+            text.style.left = -1000 + 'px';
+        }
+        
+
+        let currentIndex = 0;
+        let countdownTimer;
+
+        // Function to add text to the page
+        function addText(index) {
+            index += 1;
+            const text = textDivs[index];
+            // Position text randomly on the page
+            const maxX = window.innerWidth - text.clientWidth;
+            const maxY = window.innerHeight - text.clientHeight;
+            text.style.left = Math.floor(Math.random() * maxX) + 'px';
+            text.style.top = Math.floor(Math.random() * maxY) + 'px';
+            text.style.opacity = 1;
+            text.first_check = false;
+            addimageHolder();
+        }
+
+        // Function to add text on mouseover
+        function addTextOnMouseover() {
+            document.querySelectorAll('.text').forEach(text => {
+                text.style.opacity = 0;
+            });
+
+            addText();
+        }
+
+        function textEntered(isInBounds, text) {
+            if (isInBounds) {
+                if (!text.first_check) {
+                    text.first_check = true;
+                    text.found = true;
+                    addText(text.index);
+                }
+                setTimeout(() => {
+                    text.style.opacity = 0;
+                }, 500);
+            }
+        }
+
+        // Add initial text
+        addText(-1);
+        addimageHolder();
+
+        // Add circle that follows the cursor
+        const circle = document.createElement('div');
+        circle.id = 'circle';
+        document.body.appendChild(circle);
+
+        // Highlight text when mouse is nearby
+        document.addEventListener('mousemove', (event) => {
+            removeCover();
+            const x = event.clientX;
+            //console.log(x);
+            const y = event.clientY;
+            const x_mouse = x - circle.clientWidth/2;
+            const y_mouse = y - circle.clientHeight/2;
+
+            circle.style.left = x_mouse + 'px';
+            //console.log(circle.style.left)
+            circle.style.top = y_mouse + 'px';  
+
+            document.querySelectorAll('.text').forEach(text => {
+                const rect = text.getBoundingClientRect();
+                const padding = 50
+                const isInBounds = x >= rect.left - padding && x <= rect.right + padding && y >= rect.top -padding && y <= rect.bottom + padding;
+                //text.classList.toggle('highlight', isInBounds);
+                textEntered(isInBounds, text);
+
+            });
+        });
+
+        const holder = document.getElementById('holder');
+        const overlay = document.getElementById('overlay');
+        const largeImage = document.getElementById('large-image');
+
+        holder.addEventListener('click', () => {
+            //Randomly pick from imageNames
+            const randomIndex = Math.floor(Math.random() * imageNames.length);
+            const randomImage = 'images/' + imageNames[randomIndex];
+            console.log(randomImage)
+            largeImage.src = randomImage;
+            overlay.style.display = 'block';
+            holder.style.opacity = 0;
+        });
+
+        overlay.addEventListener('click', () => {
+        overlay.style.display = 'none';
+        });
+
+
+        function removeCover() {
+            cover.style.display = 'none';
+            
+        }
+
+    </script>
+</body>
+</html>

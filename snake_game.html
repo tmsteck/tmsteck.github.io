@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        canvas {
+            border: 1px solid #333;
+        }
+
+        #controls {
+            margin-top: 20px;
+        }
+
+        .word-box {
+            display: inline-block;
+            margin: 2px;
+            padding: 5px;
+            border: 1px solid #333;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="snakeCanvas" width="600" height="600"></canvas>
+    <div id="controls">
+        <button onclick="changeDirection('up')">Up</button>
+        <button onclick="changeDirection('down')">Down</button>
+        <button onclick="changeDirection('left')">Left</button>
+        <button onclick="changeDirection('right')">Right</button>
+    </div>
+    <div id="score">Score: 0 / <span id="maxScore">0</span></div>
+
+    <!-- ... (previous HTML code) ... -->
+
+<script>
+    const canvas = document.getElementById('snakeCanvas');
+    const ctx = canvas.getContext('2d');
+    const controlsDiv = document.getElementById('controls');
+    const scoreDiv = document.getElementById('score');
+    const maxScoreSpan = document.getElementById('maxScore');
+
+    const box = 40;
+    let snake = [{ x: 2, y: 2, word: '' }];
+    let food = { x: 4, y: 4, word: generateRandomWord() };
+    let direction = 'right';
+    let sentence = generateRandomSentence();
+    let score = 0;
+
+    function generateRandomSentence() {
+        const sentences = [
+            'The quick brown fox jumps over the lazy dog',
+            'A journey of a thousand miles begins with a single step',
+            'To be or not to be, that is the question',
+            'All that glitters is not gold',
+            'Actions speak louder than words'
+        ];
+
+        const randomIndex = Math.floor(Math.random() * sentences.length);
+        return sentences[randomIndex].split(' ');
+    }
+
+    function generateRandomWord() {
+        const words = [
+            'apple', 'banana', 'orange', 'grape', 'kiwi',
+            'watermelon', 'pineapple', 'strawberry', 'blueberry', 'peach'
+        ];
+
+        const randomIndex = Math.floor(Math.random() * words.length);
+        return words[randomIndex];
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw the snake
+        snake.forEach(segment => {
+            ctx.fillStyle = '#4CAF50';
+            ctx.fillRect(segment.x * box, segment.y * box, box, box);
+
+            // Draw the word inside the snake segment
+            ctx.fillStyle = '#fff';
+            ctx.font = '16px Arial';
+            ctx.fillText(segment.word, segment.x * box + 5, segment.y * box + box / 2);
+        });
+
+        // Draw the food
+        ctx.fillStyle = '#FF0000';
+        ctx.fillRect(food.x * box, food.y * box, box, box);
+
+        // Draw the sentence
+        ctx.fillStyle = '#000';
+        ctx.font = '16px Arial';
+        for (let i = 0; i < sentence.length; i++) {
+            const wordBoxX = 10 + i * (box + 4);
+            const wordBoxY = canvas.height - 30;
+            drawWordBox(wordBoxX, wordBoxY, sentence[i]);
+        }
+    }
+
+    function drawWordBox(x, y, word) {
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(x, y, box, box);
+        ctx.strokeStyle = '#333';
+        ctx.strokeRect(x, y, box, box);
+        ctx.fillStyle = '#000';
+        ctx.fillText(word, x + 5, y + box / 2);
+    }
+
+    function move() {
+        const head = { ...snake[0] };
+
+        switch (direction) {
+            case 'up':
+                head.y -= 1;
+                break;
+            case 'down':
+                head.y += 1;
+                break;
+            case 'left':
+                head.x -= 1;
+                break;
+            case 'right':
+                head.x += 1;
+                break;
+        }
+
+        // Check if the head collides with the food
+        if (head.x === food.x && head.y === food.y) {
+            // Add a new snake segment with the word
+            snake.unshift({ x: head.x, y: head.y, word: food.word });
+
+            // Generate new food with a random word
+            food = {
+                x: Math.floor(Math.random() * (canvas.width / box)),
+                y: Math.floor(Math.random() * (canvas.height / box)),
+                word: generateRandomWord()
+            };
+
+            // Update the score
+            score += 1;
+            scoreDiv.textContent = `Score: ${score} / ${sentence.length}`;
+        } else {
+            // Move the snake
+            snake.pop();
+            snake.unshift({ x: head.x, y: head.y, word: head.word });
+        }
+    }
+
+    function checkCollision() {
+        const head = snake[0];
+
+        if (
+            head.x < 0 ||
+            head.x >= canvas.width / box ||
+            head.y < 0 ||
+            head.y >= canvas.height / box ||
+            collisionWithItself()
+        ) {
+            clearInterval(gameInterval);
+            alert(`Game Over! Your score: ${score} / ${sentence.length}`);
+        }
+    }
+
+    function collisionWithItself() {
+        const head = snake[0];
+        return snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y);
+    }
+
+    function handleKeyPress(event) {
+        switch (event.key) {
+            case 'ArrowUp':
+                changeDirection('up');
+                break;
+            case 'ArrowDown':
+                changeDirection('down');
+                break;
+            case 'ArrowLeft':
+                changeDirection('left');
+                break;
+            case 'ArrowRight':
+                changeDirection('right');
+                break;
+        }
+    }
+
+    function changeDirection(newDirection) {
+        if (
+            (direction === 'up' && newDirection !== 'down') ||
+            (direction === 'down' && newDirection !== 'up') ||
+            (direction === 'left' && newDirection !== 'right') ||
+            (direction === 'right' && newDirection !== 'left')
+        ) {
+            direction = newDirection;
+        }
+    }
+
+    function handleCanvasClick(event) {
+        const canvasRect = canvas.getBoundingClientRect();
+        const clickX = event.clientX - canvasRect.left;
+        const clickY = event.clientY - canvasRect.top;
+
+        if (clickX < canvas.width / 2) {
+            if (clickY < canvas.height / 2) {
+                changeDirection('up');
+            } else {
+                changeDirection('down');
+            }
+        } else {
+            if (clickY < canvas.height / 2) {
+                changeDirection('left');
+            } else {
+                changeDirection('right');
+            }
+        }
+    }
+
+    document.addEventListener('keydown', handleKeyPress);
+    canvas.addEventListener('click', handleCanvasClick);
+
+    const gameInterval = setInterval(() => {
+        move();
+        checkCollision();
+        draw();
+    }, 150);
+
+    // Set max score
+    maxScoreSpan.textContent = sentence.length;
+</script>
+</body>
+</html>

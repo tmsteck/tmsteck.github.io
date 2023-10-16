@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .image {
+            width: 5vw;
+            position: fixed;
+            top: 0;
+            left: 0;
+            cursor: pointer;
+        }
+
+        #overlay2 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: none;
+            z-index: 9999;
+        }
+
+        #large-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            cursor: pointer;
+        }
+
+        .text {
+            position: absolute;
+            white-space: nowrap;
+            opacity: 1;
+            pointer-events: none;
+            color: white;
+        }
+
+        .highlight {
+            background-color: yellow;
+        }
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+            /*cursor: none;*/
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgb(0, 0, 0);
+            z-index: 2; /* Place it above other elemen  ts */
+        }
+
+        #flashlight {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, transparent -50%, yellow 500%);/* Yellow inside with transparency */
+            border: 100px solid rgb(172, 11, 11);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        #content {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            background-color: rgba(0, 0, 0, 0.7); /* Transparent black outside */
+            user-select: none; /* Disable text selection */
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+    <img src="images/small_filler.jpeg" alt="30mins" class="image" style="opacity: 0;" id="holder">
+    
+    <div id="overlay2">
+        <img src="images/jeffery.jpeg" alt="Large Image" id="large-image">
+    </div>
+
+    <div id="flashlight"></div>
+
+    <script>
+        // Sample text
+        const textBlocks_1 = [
+            "Lorem ipsum dolor sit",
+            "amet, consectetur adipiscing",
+            "elit. Sed do eiusmod",
+            "tempor incididunt ut labore",
+            "et dolore magna aliqua.",
+            "1",
+            "2",
+            "3"
+        ];
+
+        const flashlight = document.getElementById('flashlight');
+        const overlay = document.getElementById('overlay');
+        const content = document.getElementById('content');
+        const circle = document.createElement('div');
+        const holder = document.getElementById('holder');
+        const overlay2 = document.getElementById('overlay2');
+        const largeImage = document.getElementById('large-image');
+        circle.id = 'circle';
+        document.body.appendChild(circle);
+
+        function splitString(str) {
+            const words = str.split(' ');
+            const result = [];
+
+            for (let i = 0; i < words.length; i += 3) {
+                const chunk = words.slice(i, i + 3 + Math.floor(Math.random() * 3)).join(' ');
+                result.push(chunk);
+            }
+
+            return result;
+        }
+        const longString = "In this example, we're using the split() method to split the input string into an array of words. We're then iterating over the array of words in chunks of 3-5 words using a for loop. Inside the loop, we're using the slice() method to extract a chunk of 3-5 words from the array, and the join() method to join the words back into a single string. We're then pushing the resulting string into a result array. Finally, we're returning the result array containing the list of strings containing 3-5 words.";
+        const textBlocks = splitString(longString);
+        //textBlocks = result
+        function addimageHolder(){
+            const image = document.getElementById('holder');
+            const maxX = window.innerWidth - image.clientWidth;
+            const maxY = window.innerHeight - image.clientHeight;
+            image.style.left = Math.floor(Math.random() * maxX) + 'px';
+            image.style.top = Math.floor(Math.random() * maxY) + 'px';
+            image.style.opacity = 1;
+        }
+
+        const imageNames = ['30mins.jpeg','error_mitigation.jpeg', 'jeffery.jpeg', 'door.jpeg', 'magik.jpeg'];
+        const textDivs = [];
+        //Iterate through the text blocks
+        for (let i=0; i<textBlocks.length; i++){
+            const text = document.createElement('div');
+            text.className = 'text';
+            text.id = 'content'
+            text.textContent = textBlocks[i];
+            document.body.appendChild(text);
+            text.index = i;
+            textDivs.push(text);
+            text.style.opacity = 1;
+            text.found = false;
+            text.style.left = '-10000px';
+        }
+        
+
+        let currentIndex = 0;
+        let countdownTimer;
+
+        // Function to add text to the page
+        function addText(index) {
+            index += 1;
+            let text = textDivs[index];
+            // Position text randomly on the page
+            const maxX = window.innerWidth - text.clientWidth;
+            const maxY = window.innerHeight - text.clientHeight;
+            text.style.left = Math.floor(Math.random() * maxX) + 'px';
+            text.style.top = Math.floor(Math.random() * maxY) + 'px';
+            text.style.opacity = 1;
+            text.first_check = false;
+            addimageHolder();
+        }
+
+        // Function to add text on mouseover
+        function addTextOnMouseover() {
+            document.querySelectorAll('.text').forEach(text => {
+                text.style.opacity = 0;
+            });
+
+            addText();
+        }
+
+        function textEntered(isInBounds, text) {
+            if (isInBounds) {
+                if (!text.first_check) {
+                    text.first_check = true;
+                    text.found = true;
+                    addText(text.index);
+                }
+                setTimeout(() => {
+                    text.style.opacity = 0;
+                }, 500);
+            }
+        }
+
+        // Add initial text
+        addText(-1);
+        addimageHolder();
+
+        // Add circle that follows the cursor
+
+
+        // Highlight text when mouse is nearby
+        document.addEventListener('mousemove', (event) => {
+            const flashlight = document.getElementById('flashlight');
+            const x = event.clientX;
+            const y = event.clientY;
+            //const borderOffset = parseInt(flashlight.style.border);
+            //console.log(flashlight.style.border);
+            //console.log(borderOffset);
+
+            const offset = 150//parseInt(flashlight.style.border) + (parseInt(flashlight.style.width) / 2);
+            flashlight.style.left = x - offset + 'px';
+            flashlight.style.top = y - offset + 'px';
+
+            document.querySelectorAll('.text').forEach(text => {
+                const rect = text.getBoundingClientRect();
+                const padding = 0
+                const isInBounds = x >= rect.left - padding && x <= rect.right + padding && y >= rect.top -padding && y <= rect.bottom + padding;
+                //text.classList.toggle('highlight', isInBounds);
+                textEntered(isInBounds, text);
+
+            });
+        });
+
+
+
+        holder.addEventListener('click', () => {
+            //Randomly pick from imageNames
+            const randomIndex = Math.floor(Math.random() * imageNames.length);
+            const randomImage = 'images/' + imageNames[randomIndex];
+            console.log(randomImage)
+            largeImage.src = randomImage;
+            overlay2.style.display = 'block';
+            holder.style.opacity = 0;
+        });
+
+        overlay2.addEventListener('click', () => {
+        overlay2.style.display = 'none';
+        });
+
+
+        let interactionOccurred = false;
+
+        function removeOverlay() {
+            if (!interactionOccurred) {
+                overlay2.style.display = 'none';
+                interactionOccurred = true;
+            }
+        }
+
+        
+
+    </script>
+</body>
+</html>
