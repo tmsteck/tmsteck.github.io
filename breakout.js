@@ -6,9 +6,9 @@ const toggleGameOverBtn = document.getElementById('toggleGameOver');
 let paddleVelocity = 0;
 let paddleLeft = 320;
 
-const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+//const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 
-const characters = loremIpsum.split('');
+//const characters = loremIpsum.split('');
 
 let ballX = 320; /* Centered starting position */
 let ballY = 620; /* Starting position at the bottom of the screen */
@@ -17,11 +17,13 @@ let ballSpeedY = -4;
 let gameRunning = true;
 
 // Create boxes for each character
+
+
 characters.forEach((char, index) => {
   if (index < 200) { // Limiting the number of rows to 4 (40 characters)
     const box = document.createElement('div');
     box.className = 'box';
-    box.innerText = char;
+    //box.innerText = char;
     gameContainer.appendChild(box);
 
     // Set the position of each box with space around the edge

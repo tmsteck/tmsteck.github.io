@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breakout Game</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        #game-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            border: 2px solid #333;
+        }
+
+        #paddle {
+            position: absolute;
+            bottom: 10px;
+            width: 80px;
+            height: 10px;
+            background-color: #3498db;
+        }
+
+        .brick {
+            width: 40px;
+            height: 20px;
+            background-color: #e74c3c;
+            border: 1px solid #333;
+            box-sizing: border-box;
+        }
+
+        #ball {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #2ecc71;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div id="paddle"></div>
+        <div id="ball"></div>
+        <!-- Add bricks dynamically using JavaScript -->
+    </div>
+
+    <script>
+        const paddle = document.getElementById('paddle');
+        const ball = document.getElementById('ball');
+        const gameContainer = document.getElementById('game-container');
+
+        let ballX = 200;
+        let ballY = 200;
+        let ballSpeedX = 2;
+        let ballSpeedY = -2;
+        let paddleX = 160;
+
+        function updateGame() {
+            // Update ball position
+            ballX += ballSpeedX;
+            ballY += ballSpeedY;
+
+            // Bounce off the walls and ceiling
+            if (ballX < 0 || ballX > gameContainer.clientWidth - ball.clientWidth) {
+                ballSpeedX = -ballSpeedX;
+            }
+            if (ballY < 0) {
+                ballSpeedY = -ballSpeedY;
+            }
+
+            // Bounce off the paddle
+            if (
+                ballY + ball.clientHeight >= paddle.offsetTop &&
+                ballX + ball.clientWidth >= paddle.offsetLeft &&
+                ballX <= paddle.offsetLeft + paddle.clientWidth
+            ) {
+                // Adjust ball speed based on paddle collision
+                ballSpeedY = -ballSpeedY;
+                ballSpeedX += (ballX - (paddle.offsetLeft + paddle.clientWidth / 2)) * 0.01;
+            }
+
+            // Update paddle position
+            if (paddleX < 0) {
+                paddleX = 0;
+            }
+            if (paddleX > gameContainer.clientWidth - paddle.clientWidth) {
+                paddleX = gameContainer.clientWidth - paddle.clientWidth;
+            }
+            paddle.style.left = paddleX + 'px';
+
+            // Update ball position
+            ball.style.left = ballX + 'px';
+            ball.style.top = ballY + 'px';
+
+            requestAnimationFrame(updateGame);
+        }
+
+        // Start the game loop
+        updateGame();
+
+        // Add bricks dynamically (you can customize this part)
+        for (let row = 0; row < 5; row++) {
+            for (let col = 0; col < 10; col++) {
+                const brick = document.createElement('div');
+                brick.className = 'brick';
+                brick.style.top = row * 25 + 'px';
+                brick.style.left = col * 40 + 'px';
+                gameContainer.appendChild(brick);
+            }
+        }
+
+        // Handle paddle movement
+        document.addEventListener('mousemove', (event) => {
+            paddleX = event.clientX - gameContainer.getBoundingClientRect().left - paddle.clientWidth / 2;
+        });
+    </script>
+</body>
+</html>
