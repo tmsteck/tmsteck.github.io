@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breakout Game</title>
+    <style>
+        #canvas {
+            border: 1px solid #000;
+        }
+        #gameOver {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <div id="gameOver">Game Over</div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            function countActiveBalls() {
+                return balls.filter(function (ball) {
+                    return ball.status === 1;
+                }).length;
+            }
+
+            // Get canvas and context
+            var canvas = document.getElementById("canvas");
+            var ctx = canvas.getContext("2d");
+
+            // Game over screen
+            var gameOverScreen = document.getElementById("gameOver");
+
+            // Ball properties
+            var balls = [];
+            var initialBall = {
+                x: canvas.width / 2,
+                y: canvas.height - 30,
+                radius: 10,
+                color: "red",
+                dx: 2, // Change in x
+                dy: -2, // Change in y
+                status: 1
+            };
+
+            // Paddle properties
+            var paddle = {
+                width: 100,
+                height: 20,
+                color: "green",
+                x: (canvas.width - 60) / 2,
+                y: canvas.height - 10,
+                velocity: 0,
+                velocityHistory: [] // Array to store past velocities
+            };
+
+            // Brick properties
+            var gameOver = false;
+            var brickRowCount = 10;
+            var brickColumnCount = 6;
+            var brickWidth = 50;
+            var brickHeight = 20;
+            var brickPadding = 0;
+            var brickOffsetTop = 40;
+            var brickOffsetLeft = 40;
+            var bricks = [];
+            function generateRandomBlueShade() {
+                // Constant blue component
+                var red = 150;
+            
+                // Random red and green components
+                var blue = Math.floor(Math.random() * 40);
+                var green = Math.floor(Math.random() * 40);
+            
+                // Return the random shade in RGB format
+                return 'rgb(' + red + ',' + green + ',' + blue + ')';
+            }
+
+            // Lives
+
+            // Multiball
+            var multiballCount = 1;
+
+            function resetBall() {
+                balls = [initialBall];
+                multiballCount = 1;
+            }
+            for (var c = 0; c < brickColumnCount; c++) {
+                bricks[c] = [];
+                for (var r = 0; r < brickRowCount; r++) {
+                    bricks[c][r] = { x: 0, y: 0, status: 1, color: generateRandomBlueShade(), multiball: Math.random()};
+                    if (bricks[c][r].multiball < 0.2){
+                        bricks[c][r].color = "black";
+                        bricks[c][r].multiball = 1;
+                    }
+                }
+            }
+            function newBall(ball, brick){
+                if (brick.multiball === 1) {
+                    multiballCount++;
+                    ball.dx = ball.dx * (1 + 0.05 - 0.05*Math.random());
+                    ball.dy = ball.dy * (1 + 0.05 - 0.05*Math.random());
+                    balls.push({
+                        x: ball.x,
+                        y: ball.y,
+                        radius: 10,
+                        color: "red",
+                        dx: -ball.dx * 0.7, // Opposite x velocity * 0.9
+                        dy: ball.dy * Math.max(0.5,1.5*Math.random()),
+                        status: 1
+                    });
+                }
+            }
+
+            function drawBall(ball) {
+                if (ball.status===0){return;}
+                ctx.beginPath();
+                ctx.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI);
+                ctx.fillStyle = ball.color;
+                ctx.fill();
+                ctx.closePath()
+            }
+
+            function drawPaddle() {
+                ctx.fillStyle = paddle.color;
+                ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
+            }
+
+            function drawBricks() {
+                for (var c = 0; c < brickColumnCount; c++) {
+                    for (var r = 0; r < brickRowCount; r++) {
+                        if (bricks[c][r].status === 1) {
+                            var brickX = c * (brickWidth + brickPadding) + brickOffsetLeft;
+                            var brickY = r * (brickHeight + brickPadding) + brickOffsetTop;
+                            bricks[c][r].x = brickX;
+                            bricks[c][r].y = brickY;
+                            bricks[c][r].width = brickWidth;
+                            bricks[c][r].height = brickHeight;
+                            ctx.fillStyle = bricks[c][r].color;
+                            ctx.fillRect(brickX, brickY, brickWidth, brickHeight);
+                        }
+                    }
+                }
+            }
+
+
+            function collisionDetection(ball) {
+                if (ball.status === 0){return;}
+                for (var c = 0; c < brickColumnCount; c++) {
+                    for (var r = 0; r < brickRowCount; r++) {
+                        var box = bricks[c][r];
+                        if (box.status === 1) {
+                            var collides = false;
+                            // Check corners first and give them priority
+                            var corners = [
+                                { x: box.x, y: box.y },
+                                { x: box.x + brickWidth, y: box.y },
+                                { x: box.x, y: box.y + brickHeight },
+                                { x: box.x + brickWidth, y: box.y + brickHeight }
+                            ];
+            
+                            for (var i = 0; i < corners.length; i++) {
+                                var corner = corners[i];
+                                var distance = Math.sqrt(Math.pow(ball.x - corner.x, 2) + Math.pow(ball.y - corner.y, 2));
+            
+                                if (distance < ball.radius*0.5) {
+                                    // Collision with corner
+                                    ball.dx = -ball.dx;
+                                    ball.dy = -ball.dy;
+                                    collides = true;
+                                    newBall(ball, box);
+                                    box.status = 0;
+                                    break; // Exit loop if collision detected with a corner
+                                }
+                            }
+            
+                            // If no collision with corners, check edges
+                            if (!collides) {
+                                // Check left edge
+                                if (ball.x - ball.radius < box.x + box.width && ball.x - ball.radius > box.x) {
+                                    if (ball.y > box.y && ball.y < box.y + box.height) {
+                                        ball.dx = -ball.dx;
+                                        collides = true;
+                                        newBall(ball, box);
+                                        box.status = 0;
+
+                                    }
+                                }
+            
+                                // Check right edge
+                                if (ball.x + ball.radius > box.x && ball.x + ball.radius < box.x + box.width) {
+                                    if (ball.y > box.y && ball.y < box.y + box.height) {
+                                        ball.dx = -ball.dx;
+                                        newBall(ball, box);
+                                        box.status = 0;
+
+                                        collides = true;
+
+                                    }
+                                }
+            
+                                // Check top edge
+                                if (ball.y - ball.radius < box.y + box.height && ball.y - ball.radius > box.y) {
+                                    if (ball.x > box.x && ball.x < box.x + box.width) {
+                                        ball.dy = -ball.dy;
+                                        newBall(ball, box);
+                                        box.status = 0;
+                                        collides = true;
+                                    }
+                                }
+            
+                                // Check bottom edge
+                                if (ball.y + ball.radius > box.y && ball.y + ball.radius < box.y + box.height) {
+                                    if (ball.x > box.x && ball.x < box.x + box.width) {
+                                        ball.dy = -ball.dy;
+                                        newBall(ball, box);
+                                        box.status = 0;
+
+                                        collides = true;
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            function wrapText(context, text, x, y, maxWidth, lineHeight) {
+                var words = text.split(' ');
+                var line = '';
+            
+                for(var n = 0; n < words.length; n++) {
+                    var testLine = line + words[n] + ' ';
+                    var metrics = context.measureText(testLine);
+                    var testWidth = metrics.width;
+                    if (testWidth > maxWidth && n > 0) {
+                        context.fillText(line, x, y);
+                        line = words[n] + ' ';
+                        y += lineHeight;
+                    }
+                    else {
+                        line = testLine;
+                    }
+                }
+                context.fillText(line, x, y);
+            }
+            function draw() {
+                // Clear canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.font = "15px Arial";
+                wrapText(ctx, "Help! I'm trapped behind a brick wall. Anyways, board game night this Saturday, November 4th. The standard fare; starts around 5, ideally arrive by around 5:30 if you want to play some longer games. I'll have food, drinks, feel free to bring anything you would like to. We'll order food around 7:30-8. Usual place, 7211 Adelphi Road, Hyattsville, Md. As usual, a soft RSVP is helpful for me.  See you then hopefully! -Thomas", brickOffsetLeft, brickOffsetTop+10, canvas.width - 100, 20);
+
+
+                // Draw bricks
+                drawBricks();
+
+                // Draw paddle
+                drawPaddle();
+
+                // Draw each ball
+                balls.forEach(drawBall);
+
+                // Collision detection with bricks for each ball
+                balls.forEach(function (ball) {
+                    collisionDetection(ball);
+                });
+
+                // Update ball position for each ball
+                balls.forEach(function (ball) {
+                    if (ball.status === 0) {return;}
+                    ball.x += ball.dx;
+                    ball.y += ball.dy;
+
+                    // Bounce off the walls
+                    if (ball.x - ball.radius < 0 || ball.x + ball.radius > canvas.width) {
+                        ball.dx = -ball.dx; // Reverse x-direction
+                    }
+
+                    if (ball.y - ball.radius < 0) {
+                        ball.dy = -ball.dy; // Reverse y-direction
+                    }
+
+                    // Bounce off the paddle
+                    if (
+                        ball.y + ball.radius > paddle.y &&
+                        ball.x > paddle.x &&
+                        ball.x < paddle.x + paddle.width
+                    ) {
+                        ball.dy = -ball.dy; // Reverse y-direction
+                        ball.dx += 0.1* paddle.velocity; // Add 5% of paddle velocity to ball x velocity
+                    }
+                });
+
+                // Move the paddle with mouse cursor or touch screen
+                canvas.addEventListener("mousemove", function (e) {
+                    var mouseX = e.clientX - canvas.getBoundingClientRect().left;
+                    if (!gameOver) {
+                        // Update paddle velocity history
+                        paddle.velocityHistory.push(paddle.velocity);
+                        if (paddle.velocityHistory.length > 5) {
+                            paddle.velocityHistory.shift(); // Keep only the last 5 velocities
+                        }
+
+                        // Calculate average velocity over the last 5 frames
+                        var totalVelocity = paddle.velocityHistory.reduce((sum, v) => sum + v, 0);
+                        paddle.velocity = totalVelocity / paddle.velocityHistory.length;
+
+                        // Update paddle position
+                        paddle.x = mouseX - paddle.width / 2;
+                    }
+                });
+
+                // Game over if the ball goes off the bottom
+                // For all balls check if they are above the bottom of the canvas. Iterate over each ball:
+                balls.forEach(function (ball) {
+                    if (ball.status === 0) {return;}
+                    let ball_in = ball.y + ball.radius > canvas.height;
+                    if (ball_in){
+                        ball.status = 0;
+                    }
+                });
+
+                var activeBalls = countActiveBalls();
+                balls = balls.filter(function(ball) {
+                    return ball.status !== 0;
+                });
+                if (1 > activeBalls){gameOver = true; gameOverScreen.style.display = "block";}
+
+                // Display lives
+                ctx.font = "20px Arial";
+                ctx.fillStyle = "black";
+
+                // Request next animation frame
+                if (!gameOver){
+                    requestAnimationFrame(draw);
+                }
+            }
+
+            // Initialize the game
+            resetBall();
+
+            // Start the game loop
+            draw();
+        });
+    </script>
+</body>
+</html>

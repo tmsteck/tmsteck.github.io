@@ -5,122 +5,193 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Breakout Game</title>
     <style>
-        body {
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
+        #canvas {
+            border: 1px solid #000;
         }
-
-        #game-container {
-            position: relative;
-            width: 400px;
-            height: 400px;
-            border: 2px solid #333;
-        }
-
-        #paddle {
+        #gameOver {
+            display: none;
             position: absolute;
-            bottom: 10px;
-            width: 80px;
-            height: 10px;
-            background-color: #3498db;
-        }
-
-        .brick {
-            width: 40px;
-            height: 20px;
-            background-color: #e74c3c;
-            border: 1px solid #333;
-            box-sizing: border-box;
-        }
-
-        #ball {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: #2ecc71;
-            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <div id="game-container">
-        <div id="paddle"></div>
-        <div id="ball"></div>
-        <!-- Add bricks dynamically using JavaScript -->
-    </div>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <div id="gameOver">Game Over</div>
 
     <script>
-        const paddle = document.getElementById('paddle');
-        const ball = document.getElementById('ball');
-        const gameContainer = document.getElementById('game-container');
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get canvas and context
+            var canvas = document.getElementById("canvas");
+            var ctx = canvas.getContext("2d");
+            var lives = 3;
 
-        let ballX = 200;
-        let ballY = 200;
-        let ballSpeedX = 2;
-        let ballSpeedY = -2;
-        let paddleX = 160;
+            // Game over screen
+            var gameOverScreen = document.getElementById("gameOver");
 
-        function updateGame() {
-            // Update ball position
-            ballX += ballSpeedX;
-            ballY += ballSpeedY;
+            // Ball properties
+            var ball = {
+                x: canvas.width / 2,
+                y: canvas.height - 30,
+                radius: 10,
+                color: "red",
+                dx: 2, // Change in x
+                dy: -2 // Change in y
+            };
 
-            // Bounce off the walls and ceiling
-            if (ballX < 0 || ballX > gameContainer.clientWidth - ball.clientWidth) {
-                ballSpeedX = -ballSpeedX;
+            // Paddle properties
+            var paddle = {
+                width: 60,
+                height: 10,
+                color: "green",
+                x: (canvas.width - 60) / 2,
+                y: canvas.height - 10,
+                velocity: 0,
+                velocityHistory: [] // Array to store past velocities
+            };
+
+            // Brick properties
+            var brickRowCount = 10;
+            var brickColumnCount = 6;
+            var brickWidth = 60;
+            var brickHeight = 20;
+            var brickPadding = 1;
+            var brickOffsetTop = 2;
+            var brickOffsetLeft = 2;
+            var bricks = [];
+
+            for (var c = 0; c < brickColumnCount; c++) {
+                bricks[c] = [];
+                for (var r = 0; r < brickRowCount; r++) {
+                    bricks[c][r] = { x: 0, y: 0, status: 1 };
+                }
             }
-            if (ballY < 0) {
-                ballSpeedY = -ballSpeedY;
+
+            // Flag to check if the game is over
+            var gameOver = false;
+
+            function drawBall() {
+                ctx.beginPath();
+                ctx.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI);
+                ctx.fillStyle = ball.color;
+                ctx.fill();
+                ctx.closePath();
             }
 
-            // Bounce off the paddle
-            if (
-                ballY + ball.clientHeight >= paddle.offsetTop &&
-                ballX + ball.clientWidth >= paddle.offsetLeft &&
-                ballX <= paddle.offsetLeft + paddle.clientWidth
-            ) {
-                // Adjust ball speed based on paddle collision
-                ballSpeedY = -ballSpeedY;
-                ballSpeedX += (ballX - (paddle.offsetLeft + paddle.clientWidth / 2)) * 0.01;
+            function drawPaddle() {
+                ctx.fillStyle = paddle.color;
+                ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
             }
 
-            // Update paddle position
-            if (paddleX < 0) {
-                paddleX = 0;
+            function drawBricks() {
+                for (var c = 0; c < brickColumnCount; c++) {
+                    for (var r = 0; r < brickRowCount; r++) {
+                        if (bricks[c][r].status === 1) {
+                            var brickX = c * (brickWidth + brickPadding) + brickOffsetLeft;
+                            var brickY = r * (brickHeight + brickPadding) + brickOffsetTop;
+                            bricks[c][r].x = brickX;
+                            bricks[c][r].y = brickY;
+                            ctx.fillStyle = "blue";
+                            ctx.fillRect(brickX, brickY, brickWidth, brickHeight);
+                        }
+                    }
+                }
             }
-            if (paddleX > gameContainer.clientWidth - paddle.clientWidth) {
-                paddleX = gameContainer.clientWidth - paddle.clientWidth;
+
+            function collisionDetection() {
+                for (var c = 0; c < brickColumnCount; c++) {
+                    for (var r = 0; r < brickRowCount; r++) {
+                        var b = bricks[c][r];
+                        if (b.status === 1) {
+                            if (
+                                ball.x > b.x &&
+                                ball.x < b.x + brickWidth &&
+                                ball.y > b.y &&
+                                ball.y < b.y + brickHeight
+                            ) {
+                                ball.dy = -ball.dy;
+                                b.status = 0;
+                                // Add 5% of paddle velocity to ball x velocity
+                                ball.dx += 10 * paddle.velocity;
+                            }
+                        }
+                    }
+                }
             }
-            paddle.style.left = paddleX + 'px';
 
-            // Update ball position
-            ball.style.left = ballX + 'px';
-            ball.style.top = ballY + 'px';
+            function draw() {
+                // Clear canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            requestAnimationFrame(updateGame);
-        }
+                // Draw bricks
+                drawBricks();
 
-        // Start the game loop
-        updateGame();
+                // Draw ball
+                drawBall();
 
-        // Add bricks dynamically (you can customize this part)
-        for (let row = 0; row < 5; row++) {
-            for (let col = 0; col < 10; col++) {
-                const brick = document.createElement('div');
-                brick.className = 'brick';
-                brick.style.top = row * 25 + 'px';
-                brick.style.left = col * 40 + 'px';
-                gameContainer.appendChild(brick);
+                // Draw paddle
+                drawPaddle();
+
+                // Collision detection with bricks
+                collisionDetection();
+
+                // Update ball position
+                ball.x += ball.dx;
+                ball.y += ball.dy;
+
+                // Bounce off the walls
+                if (ball.x - ball.radius < 0 || ball.x + ball.radius > canvas.width) {
+                    ball.dx = -ball.dx; // Reverse x-direction
+                }
+
+                if (ball.y - ball.radius < 0) {
+                    ball.dy = -ball.dy; // Reverse y-direction
+                }
+
+                // Bounce off the paddle
+                if (
+                    ball.y + ball.radius > paddle.y &&
+                    ball.x > paddle.x &&
+                    ball.x < paddle.x + paddle.width
+                ) {
+                    ball.dy = -ball.dy; // Reverse y-direction
+                }
+
+                // Move the paddle with mouse cursor or touch screen
+                canvas.addEventListener("mousemove", function (e) {
+                    var mouseX = e.clientX - canvas.getBoundingClientRect().left;
+                    if (!gameOver) {
+                        // Update paddle velocity history
+                        paddle.velocityHistory.push(paddle.velocity);
+                        if (paddle.velocityHistory.length > 5) {
+                            paddle.velocityHistory.shift(); // Keep only the last 5 velocities
+                        }
+
+                        // Calculate average velocity over the last 5 frames
+                        var totalVelocity = paddle.velocityHistory.reduce((sum, v) => sum + v, 0);
+                        paddle.velocity = totalVelocity / paddle.velocityHistory.length;
+
+                        // Update paddle position
+                        paddle.x = mouseX - paddle.width / 2;
+                    }
+                });
+
+                // Game over if the ball goes off the bottom
+                if (ball.y + ball.radius > canvas.height) {
+                    gameOver = true;
+                    gameOverScreen.style.display = "block";
+                }
+
+                // Request next animation frame
+                requestAnimationFrame(draw);
             }
-        }
 
-        // Handle paddle movement
-        document.addEventListener('mousemove', (event) => {
-            paddleX = event.clientX - gameContainer.getBoundingClientRect().left - paddle.clientWidth / 2;
+            // Start the game loop
+            draw();
         });
     </script>
 </body>

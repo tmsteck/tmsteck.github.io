@@ -12,27 +12,26 @@ let paddleLeft = 320;
 
 let ballX = 320; /* Centered starting position */
 let ballY = 620; /* Starting position at the bottom of the screen */
-let ballSpeedX = 2;
-let ballSpeedY = -4;
+let ballSpeedX = 1;
+let ballSpeedY = -2;
 let gameRunning = true;
 
 // Create boxes for each character
-
-
-characters.forEach((char, index) => {
-  if (index < 200) { // Limiting the number of rows to 4 (40 characters)
+const boxCount = 200;
+// Create boxCount number of boxes
+for (let i = 0; i < boxCount; i++) {
     const box = document.createElement('div');
     box.className = 'box';
-    //box.innerText = char;
     gameContainer.appendChild(box);
 
     // Set the position of each box with space around the edge
-    const boxLeft = 20 + (index % 20) * 30;
-    const boxTop = 20 + Math.floor(index / 20) * 30;
+    const boxLeft = 20 + (i % 20) * 30;
+    const boxTop = 20 + Math.floor(i / 20) * 30;
     box.style.left = `${boxLeft}px`;
     box.style.top = `${boxTop}px`;
   }
-});
+
+
 
 const boxes = document.querySelectorAll('.box');
 
@@ -112,7 +111,8 @@ function updateGame() {
       ballX < paddle.offsetLeft + 80
     ) {
       ballSpeedY = -ballSpeedY;
-      ballSpeedX = Math.max(Math.min(paddleVelocity,2),-2) + ballSpeedX;
+      ballSpeedX = ballSpeedX + paddleVelocity*0.01;
+      //Math.max(Math.min(paddleVelocity,2),-2) + ballSpeedX;
       console.log('ballSpeedX:', ballSpeedX);
       console.log('paddleVelocity:', paddleVelocity);
 
