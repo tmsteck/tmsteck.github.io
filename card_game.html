@@ -133,7 +133,9 @@
             const computerCard = computerCards[Math.floor(Math.random() * computerCards.length)];
             
             // Animate player's card
-            const playerCardElement = document.querySelector(`.card:contains('${playerCard.value}${playerCard.suit}')`);
+            //const playerCardElement = document.querySelector(`.card:contains('${playerCard.value}${playerCard.suit}')`);
+            const cards = Array.from(document.querySelectorAll('.card'));
+            const playerCardElement = cards.filter(card => card.textContent.includes(`${playerCard.value}${playerCard.suit}`))[0];
             playerCardElement.classList.add('played');
             playArea.appendChild(playerCardElement);
 
@@ -182,7 +184,7 @@
         }
 
         function endGame() {
-            message.textContent = 'You lost! The computer always wins.';
+            message.textContent = 'You lost!';
             gameArea.style.display = 'none';
             dealButton.textContent = 'Play Again';
             computerScore = 0;
