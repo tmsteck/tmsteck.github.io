@@ -160,10 +160,8 @@
                 // Compare cards and update score
                 const result = compareCards(playerCard, computerCard);
                 resultDisplay.textContent = result;
-                if (result.includes('Computer wins')) {
-                    computerScore += 1;
-                    scoreDisplay.textContent = `Computer Score: ${computerScore}`;
-                }
+                computerScore += 1;
+                scoreDisplay.textContent = `Computer Score: ${computerScore}`;
 
                 // Remove cards from hands
                 playerCards = playerCards.filter(c => c !== playerCard);
@@ -210,7 +208,7 @@
         }
 
         function giveUp() {
-            message.innerHTML = "We have a new house! We'd love for you to join us for a housewarming party, which will probably look suspiciously like a normal game night, at 5pm on August 3rd. Hope you can join! Feel free to invite friends!";
+            message.innerHTML = "Quitter! Anyways, we have a new house! We'd love for you to join us for a housewarming party, which will probably look suspiciously like a normal game night, at 5pm on August 3rd. Hope you can join! Feel free to invite friends! As always, an RSVP is helpful but not required. \n The new address is 6723 44th Ave, University Park, MD 20782. Street parking is available.";
             gameArea.style.display = 'none';
             dealButton.style.display = 'none';
             giveUpButton.style.display = 'none';
