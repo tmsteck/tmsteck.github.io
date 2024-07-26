@@ -79,7 +79,7 @@
         let computerScore = 0;
         let playerCards = [];
         let computerCards = [];
-        const suits = ['s', 'h', 'd', 'c'];
+        const suits = ['♠', '♥', '♦', '♣'];
         const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
 
         function createDeck() {
@@ -173,13 +173,21 @@
             const cardOrder = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
             const playerValue = cardOrder.indexOf(playerCard.value);
             const computerValue = cardOrder.indexOf(computerCard.value);
+            const playerSuit = suits.indexOf(playerCard.suit);
+            const computerSuit = suits.indexOf(computerCard.suit);
+            const suit_order = ['♠', '♥', '♦', '♣'];
+            //if player value is smaller, computer wins. Then, clubs beats diamonds beats hearts beats spades
+            //Get the index of the player and the computer suit:
+            const playerSuitIndex = suit_order.indexOf(playerCard.suit);
+            const computerSuitIndex = suit_order.indexOf(computerCard.suit);
 
-            if (playerValue > computerValue) {
-                return "Player's card is higher, but Computer wins anyway!";
-            } else if (playerValue < computerValue) {
-                return "Computer's card is higher. Computer wins!";
+            if (playerValue < computerValue) {
+                return "High card wins. Computer earns 1 point";
+            } else if (playerSuiteIndex < computerSuitIndex) {
+                // Convert from python: return "{} beats {}. Computer earns 1 point".format(computerSuit, playerSuit)
+                return `${computerCard.suit} beats ${playerCard.suit}. Computer earns 1 point`;
             } else {
-                return "It's a tie, but Computer wins by default!";
+                return "Compter Wins. Earns 1 point";
             }
         }
 
