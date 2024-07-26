@@ -23,8 +23,9 @@
             font-size: 16px;
             cursor: pointer;
         }
-        #player-hand, #computer-hand {
+        #player-hand, #computer-hand, #play-area {
             margin: 20px 0;
+            min-height: 100px;
         }
         .card {
             display: inline-block;
@@ -34,6 +35,18 @@
             border: 1px solid black;
             margin: 0 5px;
             cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .card.played {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        #result {
+            font-weight: bold;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -41,9 +54,11 @@
     <div id="game-container">
         <h1 id="message">Beat the game to access the invitation!</h1>
         <div id="game-area" style="display: none;">
-            <div id="player-hand"></div>
             <div id="computer-hand"></div>
+            <div id="play-area"></div>
+            <div id="player-hand"></div>
             <p id="score">Computer Score: 0</p>
+            <p id="result"></p>
         </div>
         <button id="deal-button">Deal Cards</button>
         <button id="give-up-button">I give up</button>
@@ -55,20 +70,45 @@
         const gameArea = document.getElementById('game-area');
         const playerHand = document.getElementById('player-hand');
         const computerHand = document.getElementById('computer-hand');
+        const playArea = document.getElementById('play-area');
         const scoreDisplay = document.getElementById('score');
+        const resultDisplay = document.getElementById('result');
         const dealButton = document.getElementById('deal-button');
         const giveUpButton = document.getElementById('give-up-button');
 
         let computerScore = 0;
         let playerCards = [];
         let computerCards = [];
+        const suits = ['♠', '♥', '♦', '♣'];
+        const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+
+        function createDeck() {
+            let deck = [];
+            for (let suit of suits) {
+                for (let value of values) {
+                    deck.push({ suit, value });
+                }
+            }
+            return deck;
+        }
+
+        function shuffleDeck(deck) {
+            for (let i = deck.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [deck[i], deck[j]] = [deck[j], deck[i]];
+            }
+            return deck;
+        }
 
         function dealCards() {
-            playerCards = ['A', '2', '3', '4', '5'];
-            computerCards = ['6', '7', '8', '9', '10'];
+            let deck = shuffleDeck(createDeck());
+            playerCards = deck.slice(0, 5);
+            computerCards = deck.slice(5, 10);
             displayCards();
             gameArea.style.display = 'block';
             dealButton.textContent = 'Play Again';
+            resultDisplay.textContent = '';
+            playArea.innerHTML = '';
         }
 
         function displayCards() {
@@ -77,7 +117,7 @@
             playerCards.forEach(card => {
                 const cardElement = document.createElement('div');
                 cardElement.className = 'card';
-                cardElement.textContent = card;
+                cardElement.textContent = `${card.value}${card.suit}`;
                 cardElement.onclick = () => playCard(card);
                 playerHand.appendChild(cardElement);
             });
@@ -89,16 +129,55 @@
             });
         }
 
-        function playCard(card) {
+        function playCard(playerCard) {
             const computerCard = computerCards[Math.floor(Math.random() * computerCards.length)];
-            computerScore += 1;
-            scoreDisplay.textContent = `Computer Score: ${computerScore}`;
-            playerCards = playerCards.filter(c => c !== card);
-            computerCards = computerCards.filter(c => c !== computerCard);
-            displayCards();
+            
+            // Animate player's card
+            const playerCardElement = document.querySelector(`.card:contains('${playerCard.value}${playerCard.suit}')`);
+            playerCardElement.classList.add('played');
+            playArea.appendChild(playerCardElement);
 
-            if (playerCards.length === 0) {
-                endGame();
+            // Animate computer's card
+            setTimeout(() => {
+                const computerCardElement = document.createElement('div');
+                computerCardElement.className = 'card played';
+                computerCardElement.textContent = `${computerCard.value}${computerCard.suit}`;
+                playArea.appendChild(computerCardElement);
+
+                // Compare cards and update score
+                const result = compareCards(playerCard, computerCard);
+                resultDisplay.textContent = result;
+                if (result.includes('Computer wins')) {
+                    computerScore += 1;
+                    scoreDisplay.textContent = `Computer Score: ${computerScore}`;
+                }
+
+                // Remove cards from hands
+                playerCards = playerCards.filter(c => c !== playerCard);
+                computerCards = computerCards.filter(c => c !== computerCard);
+
+                // Clear play area and update display after a delay
+                setTimeout(() => {
+                    playArea.innerHTML = '';
+                    displayCards();
+                    if (playerCards.length === 0) {
+                        endGame();
+                    }
+                }, 1500);
+            }, 500);
+        }
+
+        function compareCards(playerCard, computerCard) {
+            const cardOrder = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+            const playerValue = cardOrder.indexOf(playerCard.value);
+            const computerValue = cardOrder.indexOf(computerCard.value);
+
+            if (playerValue > computerValue) {
+                return "Player's card is higher, but Computer wins anyway!";
+            } else if (playerValue < computerValue) {
+                return "Computer's card is higher. Computer wins!";
+            } else {
+                return "It's a tie, but Computer wins by default!";
             }
         }
 
