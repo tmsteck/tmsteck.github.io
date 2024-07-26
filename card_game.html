@@ -48,6 +48,17 @@
             font-weight: bold;
             margin-top: 10px;
         }
+        #play-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .card.played {
+            position: relative;
+            transform: none;
+            margin: 0 10px;
+        }
     </style>
 </head>
 <body>
@@ -182,12 +193,12 @@
             const computerSuitIndex = suit_order.indexOf(computerCard.suit);
 
             if (playerValue < computerValue) {
-                return "High card wins. Computer earns 1 point";
+                return "High card wins. Computer wins 1 point";
             } else if (playerSuitIndex < computerSuitIndex) {
                 // Convert from python: return "{} beats {}. Computer earns 1 point".format(computerSuit, playerSuit)
-                return `${computerCard.suit} beats ${playerCard.suit}. Computer earns 1 point`;
+                return `${computerCard.suit} beats ${playerCard.suit}. Computer wins 1 point`;
             } else {
-                return "Compter Wins. Earns 1 point";
+                return "Compter wins. Earns 1 point";
             }
         }
 
