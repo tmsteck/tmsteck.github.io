@@ -183,7 +183,7 @@
 
             if (playerValue < computerValue) {
                 return "High card wins. Computer earns 1 point";
-            } else if (playerSuiteIndex < computerSuitIndex) {
+            } else if (playerSuitIndex < computerSuitIndex) {
                 // Convert from python: return "{} beats {}. Computer earns 1 point".format(computerSuit, playerSuit)
                 return `${computerCard.suit} beats ${playerCard.suit}. Computer earns 1 point`;
             } else {
