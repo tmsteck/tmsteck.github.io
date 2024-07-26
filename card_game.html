@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Game Challenge</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        #game-container {
+            text-align: center;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #player-hand, #computer-hand {
+            margin: 20px 0;
+        }
+        .card {
+            display: inline-block;
+            width: 50px;
+            height: 70px;
+            background-color: white;
+            border: 1px solid black;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <h1 id="message">Beat the game to access the invitation!</h1>
+        <div id="game-area" style="display: none;">
+            <div id="player-hand"></div>
+            <div id="computer-hand"></div>
+            <p id="score">Computer Score: 0</p>
+        </div>
+        <button id="deal-button">Deal Cards</button>
+        <button id="give-up-button">I give up</button>
+    </div>
+
+    <script>
+        const gameContainer = document.getElementById('game-container');
+        const message = document.getElementById('message');
+        const gameArea = document.getElementById('game-area');
+        const playerHand = document.getElementById('player-hand');
+        const computerHand = document.getElementById('computer-hand');
+        const scoreDisplay = document.getElementById('score');
+        const dealButton = document.getElementById('deal-button');
+        const giveUpButton = document.getElementById('give-up-button');
+
+        let computerScore = 0;
+        let playerCards = [];
+        let computerCards = [];
+
+        function dealCards() {
+            playerCards = ['A', '2', '3', '4', '5'];
+            computerCards = ['6', '7', '8', '9', '10'];
+            displayCards();
+            gameArea.style.display = 'block';
+            dealButton.textContent = 'Play Again';
+        }
+
+        function displayCards() {
+            playerHand.innerHTML = '';
+            computerHand.innerHTML = '';
+            playerCards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'card';
+                cardElement.textContent = card;
+                cardElement.onclick = () => playCard(card);
+                playerHand.appendChild(cardElement);
+            });
+            computerCards.forEach(() => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'card';
+                cardElement.textContent = '?';
+                computerHand.appendChild(cardElement);
+            });
+        }
+
+        function playCard(card) {
+            const computerCard = computerCards[Math.floor(Math.random() * computerCards.length)];
+            computerScore += 1;
+            scoreDisplay.textContent = `Computer Score: ${computerScore}`;
+            playerCards = playerCards.filter(c => c !== card);
+            computerCards = computerCards.filter(c => c !== computerCard);
+            displayCards();
+
+            if (playerCards.length === 0) {
+                endGame();
+            }
+        }
+
+        function endGame() {
+            message.textContent = 'You lost! The computer always wins.';
+            gameArea.style.display = 'none';
+            dealButton.textContent = 'Play Again';
+            computerScore = 0;
+        }
+
+        function giveUp() {
+            message.innerHTML = "We have a new house! We'd love for you to join us for a housewarming party, which will probably look suspiciously like a normal game night, at 5pm on August 3rd. Hope you can join! Feel free to invite friends!";
+            gameArea.style.display = 'none';
+            dealButton.style.display = 'none';
+            giveUpButton.style.display = 'none';
+        }
+
+        dealButton.onclick = dealCards;
+        giveUpButton.onclick = giveUp;
+    </script>
+</body>
+</html>
