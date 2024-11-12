@@ -111,7 +111,7 @@
     <main class="container my-5">
         <div class="row about-section">
             <div class="col-md-4 text-center">
-                <img src="Thomas_2020.jpg" alt="Thomas Steckmann" class="img-fluid rounded-circle">
+                <img src="Photo Oct 12.jpg" alt="Thomas Steckmann" class="img-fluid rounded-circle">
             </div>
             <div class="col-md-8">
                 <h2>About Me</h2>
@@ -256,6 +256,8 @@
 
         // Function to expand card
         function expandCard(card, item) {
+            if (card.classList.contains('expanded')) return;
+
             const overlay = document.createElement('div');
             overlay.className = 'overlay';
             document.body.appendChild(overlay);
