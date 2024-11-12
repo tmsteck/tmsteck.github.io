@@ -165,6 +165,16 @@
                 carouselIndicators.appendChild(indicator);
             }
         }
+        let carouselInstance;
+
+        window.addEventListener('load', () => {
+            const carousel = document.querySelector('#portfolioCarousel');
+            carouselInstance = new bootstrap.Carousel(carousel, {
+                interval: 999999999 // Very large number to effectively pause auto-rotation
+            });
+            generateCarouselItems();
+        });
+
 
         // Function to expand card
         function expandCard(card, item) {
@@ -182,17 +192,14 @@
             card.querySelector('.card-body').appendChild(separator);
             card.querySelector('.card-body').appendChild(moreInfo);
 
-            const carousel = document.querySelector('#portfolioCarousel');
-            const carouselInstance = bootstrap.Carousel.getInstance(carousel);
-            carouselInstance.date-setInterval(1000000);
             carouselInstance.pause();
+
 
             overlay.addEventListener('click', () => {
                 card.classList.remove('expanded');
                 separator.remove();
                 moreInfo.remove();
                 overlay.remove();
-                carouselInstance.date-setInterval(5000);
                 carouselInstance.cycle();
             });
         }
