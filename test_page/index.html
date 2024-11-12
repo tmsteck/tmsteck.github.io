@@ -88,11 +88,11 @@
     <main class="container my-5">
         <div class="row about-section">
             <div class="col-md-4 text-center">
-                <img src="Thomas_2020.jpg" alt="About Me" class="img-fluid rounded-circle">
+                <img src="Thomas_2020.jpg" alt="Thomas Steckmann" class="img-fluid rounded-circle">
             </div>
             <div class="col-md-8">
                 <h2>About Me</h2>
-                <p id="about">I'm a passionate developer and designer focused on creating beautiful, user-friendly applications that make an impact. I love blending creativity and technology to bring ideas to life.</p>
+                <p id="about">My name is Thomas Steckmann, and this website is designed to host a portfolio of the research and projects I have completed at NC State University while completing my Bachelor’s degrees in Physics and Mathematics and going forward during my graduate degree at the University of Maryland, College Park. Generally, my research has focused on the experimental or computational study of condensed matter physics systems, primarily in organic electronics and Hamiltonian simulation. Below is a list of the major research projects I have worked on, and links to the article (where available). More details can be found for each project in the above navigation links.</p>
             </div>
         </div>
     </main>
@@ -137,20 +137,20 @@
         // Portfolio items
         const portfolioItems = [
             {
-                title: "Project One",
-                description: "A brief description of my project. This project is a web application designed to streamline workflow processes, featuring a user-friendly interface and robust functionality."
+                title: "Cartan Decomposition for Hamiltonian Fast-Forwarding",
+                description: "Starting at Oak Ridge during a 2020 Summer Undergraduate Laboratory Internship, I worked on applying methods of Lie algebraic decomposition to efficiently implementing time evolution operators for digital simulation of systems on quantum computers. We successfully found an algorithm based on a classical minimization problem which works well for certain types of Hamiltonians: exactly which Hamiltonians are best is of continuing study. However, for a certain class of models which can be mapped to non-interacting fermions on a 1D lattice, our method works in polynomial time to simulate the dynamics of the system at any target time with only a fixed quantum circuit gate cost. The article, submitted to Physical Review Letters, can be found here: <a href='https://arxiv.org/abs/2104.00728'>Fixed Depth Hamiltonian Simulation via Cartan Decomposition</a>"
             },
             {
-                title: "Project Two",
-                description: "Another description of a featured project. This mobile app focuses on delivering an efficient and intuitive experience for managing daily tasks with built-in productivity tools."
+                title: "Dynamical Mean Field Theory on Noisy Quantum Systems",
+                description: "As a follow-up to our work on Cartan decomposition and to explore the usefulness of the algorithm in the near term, we have successfully modeled the Mott-insulator phase transition in the Hubbard model on noisy quantum hardware from IBM. The article is available on arXiv: <a href='https://arxiv.org/abs/2112.05688'>Simulating the Mott transition on a noisy digital quantum computer via Cartan-based fast-forwarding circuits</a>"
             },
             {
-                title: "Project Three",
-                description: "Some details about my work here. This project is a data visualization dashboard that provides insights through interactive graphs and charts."
+                title: "Charge Transport in floated Ultrathin Films",
+                description: "Separate from my work on quantum computing, the goal of this project was the understand the properties of semi-conducting polymer films when fabricated using a water floating method. We studied a specific polymer known as N2200, which is a well studied and reasonably good N-type semiconductor. In prior studies, attempts at fabricating transistors using N2200 in ultrathin films, down to single molecular layers of the polymer, observed significant degradation of the mobility of the charges. Using our water floating method, we observed instead, at the worst, mobilities in ultrathin films comparable to the properties of films which used a significantly thicker polymer layers. In addition, the good transport properties were maintained in device configurations that were not feasible for thicker films. Study of the microstructures in the film revealed that the floated filmes maintained better polymer alignment over longer ranges, which is known to contribute to strong electronic mobility. This work was submitted to Advanced Electronic Materials in December 2021. A copy of the manuscript can be download from this link: <a href='Adv Elect Materials - 2022 - Steckmann - Ultrathin P NDI2OD‐T2 Films with High Electron Mobility in Both Bottom‐Gate and.pdf'>Adv Elect Materials - 2022 - Steckmann - Ultrathin P NDI2OD‐T2 Films with High Electron Mobility in Both Bottom‐Gate and.pdf Throughout The Film</a>"
             },
             {
-                title: "Project Four",
-                description: "This project is a modern website for a local business, featuring responsive design and integration with their existing CRM system."
+                title: "Lax Dynamics in Cartan Decomposition",
+                description: "With Prof. Moody Chu, I have been working to extend our understanding of the Cartan Decomposition algorithm used in our 'Fixed Depth Hamiltonian Simulation via Cartan Decomposition' work. A key step in the algorithm is finding a set of rotation angles, which has a runtime that scales in polynomial time but a rather large polynomial. Instead, we propose using the study of Lax dynamics to compute the angles for the rotations used in the decomposition. This provides an exact solution to the minimization problem, and avoids costly and often times ineffective numerical optimization. This is very much a work in progress, but I would be happy to discuss the results."
             }
         ];
 
@@ -190,7 +190,7 @@
 
                     const cardText = document.createElement('p');
                     cardText.className = 'card-text';
-                    cardText.textContent = portfolioItems[itemIndex].description;
+                    cardText.innerHTML = portfolioItems[itemIndex].description;
 
                     cardBody.appendChild(cardTitle);
                     cardBody.appendChild(cardText);
