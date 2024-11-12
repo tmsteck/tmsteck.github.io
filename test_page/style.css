@@ -1,0 +1,63 @@
+:root {
+    --primary-color: #1558b0;
+    --accent-color: #ffa07a;
+    --background-color: #f0f2f5;
+    --about-bg-color: #ffffff;
+    --text-color: #333;
+}
+body {
+    background-color: var(--background-color);
+}
+.nav-link {
+    color: var(--primary-color);
+}
+.about-section {
+    background-color: var(--about-bg-color);
+    color: var(--text-color);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+.about-section:hover {
+    transform: translateY(-10px);
+}
+#landing {
+    background-color: var(--primary-color);
+    color: white;
+}
+footer {
+    background-color: var(--primary-color);
+    color: white;
+}
+footer a {
+    color: var(--accent-color);
+}
+.portfolio-card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+.portfolio-card:hover {
+    transform: translateY(-10px);
+}
+.carousel-indicators [data-bs-target] {
+    background-color: var(--accent-color);
+}
+.carousel-control-prev, .carousel-control-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 5%;
+}
+.carousel-indicators {
+    position: static;
+    margin-top: 20px;
+}
+.carousel-item {
+    padding: 20px;
+}
+.carousel-inner {
+    padding: 20px;
+}

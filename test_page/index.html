@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1558b0;
+            --accent-color: #ffa07a;
+            --background-color: #f0f2f5;
+            --about-bg-color: #ffffff;
+            --text-color: #333;
+        }
+        body {
+            background-color: var(--background-color);
+        }
+        .nav-link {
+            color: var(--primary-color);
+        }
+        .about-section {
+            background-color: var(--about-bg-color);
+            color: var(--text-color);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .about-section:hover {
+            transform: translateY(-10px);
+        }
+        #landing {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        footer a {
+            color: var(--accent-color);
+        }
+        .portfolio-card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+        }
+        .carousel-indicators [data-bs-target] {
+            background-color: var(--accent-color);
+        }
+        .carousel-control-prev, .carousel-control-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 5%;
+        }
+        .carousel-indicators {
+            position: static;
+            margin-top: 20px;
+        }
+        .carousel-item {
+            padding: 20px;
+        }
+        .carousel-inner {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Include Header -->
+    <div id="header"></div>
+
+    <!-- Landing Page -->
+    <header id="landing" class="text-center py-5">
+        <div class="container">
+            <h1>Welcome to My Personal Portfolio</h1>
+            <p class="lead">Exploring creativity, building solutions, and sharing the journey.</p>
+        </div>
+    </header>
+
+    <!-- Main Box -->
+    <main class="container my-5">
+        <div class="row about-section">
+            <div class="col-md-4 text-center">
+                <img src="Thomas_2020.jpg" alt="About Me" class="img-fluid rounded-circle">
+            </div>
+            <div class="col-md-8">
+                <h2>About Me</h2>
+                <p id="about">I'm a passionate developer and designer focused on creating beautiful, user-friendly applications that make an impact. I love blending creativity and technology to bring ideas to life.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="container my-5">
+        <h2 class="text-center mb-4">My Portfolio</h2>
+        <div id="portfolioCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <!-- Carousel items will be dynamically generated -->
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#portfolioCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#portfolioCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+            <div class="carousel-indicators">
+                <!-- Indicators will be dynamically generated -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="text-center py-4">
+        <div class="container">
+            <p>Contact me at: <a href="mailto:example@example.com">example@example.com</a></p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Load header
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header').innerHTML = data;
+            });
+
+        // Portfolio items
+        const portfolioItems = [
+            {
+                title: "Project One",
+                description: "A brief description of my project. This project is a web application designed to streamline workflow processes, featuring a user-friendly interface and robust functionality."
+            },
+            {
+                title: "Project Two",
+                description: "Another description of a featured project. This mobile app focuses on delivering an efficient and intuitive experience for managing daily tasks with built-in productivity tools."
+            },
+            {
+                title: "Project Three",
+                description: "Some details about my work here. This project is a data visualization dashboard that provides insights through interactive graphs and charts."
+            },
+            {
+                title: "Project Four",
+                description: "This project is a modern website for a local business, featuring responsive design and integration with their existing CRM system."
+            }
+        ];
+
+        // Function to generate carousel items
+        function generateCarouselItems() {
+            const carouselInner = document.querySelector('.carousel-inner');
+            const carouselIndicators = document.querySelector('.carousel-indicators');
+            carouselInner.innerHTML = '';
+            carouselIndicators.innerHTML = '';
+
+            const itemsPerSlide = window.innerWidth < 768 ? 1 : 2;
+            const numSlides = Math.ceil(portfolioItems.length / itemsPerSlide);
+
+            for (let i = 0; i < numSlides; i++) {
+                const carouselItem = document.createElement('div');
+                carouselItem.className = 'carousel-item' + (i === 0 ? ' active' : '');
+
+                const row = document.createElement('div');
+                row.className = 'row justify-content-center';
+
+                for (let j = 0; j < itemsPerSlide; j++) {
+                    const itemIndex = i * itemsPerSlide + j;
+                    if (itemIndex >= portfolioItems.length) break;
+
+                    const col = document.createElement('div');
+                    col.className = 'col-md-5';
+
+                    const card = document.createElement('div');
+                    card.className = 'card portfolio-card';
+
+                    const cardBody = document.createElement('div');
+                    cardBody.className = 'card-body text-center';
+
+                    const cardTitle = document.createElement('h5');
+                    cardTitle.className = 'card-title';
+                    cardTitle.innerHTML = `<a href="#">${portfolioItems[itemIndex].title}</a>`;
+
+                    const cardText = document.createElement('p');
+                    cardText.className = 'card-text';
+                    cardText.textContent = portfolioItems[itemIndex].description;
+
+                    cardBody.appendChild(cardTitle);
+                    cardBody.appendChild(cardText);
+                    card.appendChild(cardBody);
+                    col.appendChild(card);
+                    row.appendChild(col);
+                }
+
+                carouselItem.appendChild(row);
+                carouselInner.appendChild(carouselItem);
+
+                const indicator = document.createElement('button');
+                indicator.type = 'button';
+                indicator.dataset.bsTarget = '#portfolioCarousel';
+                indicator.dataset.bsSlideTo = i;
+                indicator.className = i === 0 ? 'active' : '';
+                indicator.ariaLabel = `Slide ${i + 1}`;
+                carouselIndicators.appendChild(indicator);
+            }
+        }
+
+        // Generate carousel items on load and resize
+        window.addEventListener('load', generateCarouselItems);
+        window.addEventListener('resize', generateCarouselItems);
+    </script>
+</body>
+</html>
