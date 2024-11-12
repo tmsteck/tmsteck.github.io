@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 <head>
     <title>Thomas Steckmann</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
@@ -7,71 +8,26 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>   
     <link rel='stylesheet' href='style.css'>
 </head>
+<body>
+    <div w3-include-html="header.html"></div>
 
+    <div class="container mx-auto shadow-lg p-3 mb-5 rounded" style="margin-top: 100px; margin-left: 100px; margin-right: 100px; background-color: rgb(199 182 161); ">
+        <span>
+            <img src="basictransistor.png" alt="An OFET cross-cut showing the drain, source and drain electrodes and the active organic semiconducting layer between them" class="img-thumbnail border border-dark" style="height: 5em; width: auto; white-space: nowrap; float:left; margin:2em;" >
+            <h3 class='text-center'>Organic Electronics  </h3> <p>
+                Primarily from 2018 to 2020, I worked with Drs. Abay Gadisa, Masrur Nahid, and Harald Ade on a project exploring the electrical
+                characteristics of organic transistors. The devices, known as Organic Field Effect Transistors (OFET), are transistors which use a semi-conducting
+                conjugated polymer as the active layer instead of silicon based semiconductor: applying a voltage to the gate of the device polarizes a channel in the polymer layer between the source and the drain electrodes of the devices. Ideally, only when an external voltage is applied to the gate is charge allowed to flow. However, OFETs and organic electronics in general are relatively young, especially compared to established semi-conductors. The goal of my work, and the labs work in general, is to understand the relationship between the structure of the polymers in organic electronic devices and the performance of the devices. In the case of OFETs, these metrics are the ratio between the "off" current flow and the "on" current flow (on/off ratio), the amount of current flow in the gate as a function of the external voltage and the distance between the electrodes (primary charge carrier mobility), and the voltage required to turn on the current (threshold voltage). All three areas require significant improvement to compete with current electronics.</p> 
+                <p>
+                My project, which investigated the properties of OFETs fabricated using a floating film, aimed to bridge the gap between usefulness and current work by reducing the fabrication cost of the devices, reducing the amount of light absorbed by the devices, increasing the flexibility of the devices, increasing the charge mobility, and allowing access to large scale fabrication. The main focus was on fabricating "Ultrathin" film devices, which films smaller than 10nm or about 3-4 molecular layers. These films address the flexibility, transparency, and cost issues by reducing the amount of material in the device. However, many ultrathin films suffer a negative effect in the electrical characteristics, meaning the devices are less useful even if they have benefits in other areas. Using the floating Film Transfer Method (FTM), we demonstrated that for N2200, a common semi-conducting polymer, maintains its high electron mobility even down to films only two molecular layers thick. </p>
+                <p>
+                This work was submitted to Advanced Electronics Material in December 2021. A copy of the manuscript is made available here:
 
-<html>
-    <body>
-        <div class="top-bar">   
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class="container-fluid">
- 
-                    <a class="navbar-brand">Thomas Steckmann</a>
-
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav mb-2 mb-lg-0">
-                            <li class="nav-item">
-                            <a class="nav-link active" href="http://www.thomassteckmann.com/">Home</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Portfolio
-                            </a>
-                            <ul class="dropdown-menu" style="padding-top: 0;" aria-labelledby="navbarDropdown">
-                                <li class="container-fluid" style='background-color: lightgray; text-align: center;'> <div class="mx-auto">Research </div></li>
-                                <li><a class="dropdown-item" href="quantum.html">Quantum Computing</a></li>
-                                <li><a class="dropdown-item" href="ofet.html">Organic Electronics</a></li>
-                                <li class="container-fluid" style='background-color: lightgray; text-align: center;'> <div class="mx-auto">Projects </div></li>
-                                <li><a class="dropdown-item" href="hackathons.html">Quantum Projects</a></li>
-                                <li><a class="dropdown-item" href="cryptography.html">Crytopgraphy</a></li>
-                                <li><a class="dropdown-item" href="symphony.html">Poetry</a></li>
-                            </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="Thomas_Steckmann_Resume_2021.pdf">CV</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://quantuminformationclub.wordpress.ncsu.edu/">Quantum Information Club</a>
-                            </li>
-                        </ul>
-                    </div>  
-                </div>
-            </nav>
-        </div>
-
-
-        <!-- Begin Main Page-->
-        <div class="container mx-auto shadow-lg p-3 mb-5 rounded" style="margin-top: 100px; margin-left: 100px; margin-right: 100px; background-color: rgb(199 182 161); ">
-            <span>
-                <img src="basictransistor.png" alt="An OFET cross-cut showing the drain, source and drain electrodes and the active organic semiconducting layer between them" class="img-thumbnail border border-dark" style="height: 5em; width: auto; white-space: nowrap; float:left; margin:2em;" >
-                <h3 class='text-center'>Organic Electronics  </h3> <p>
-                    Primarily from 2018 to 2020, I worked with Drs. Abay Gadisa, Masrur Nahid, and Harald Ade on a project exploring the electrical
-                    characteristics of organic transistors. The devices, known as Organic Field Effect Transistors (OFET), are transistors which use a semi-conducting
-                    conjugated polymer as the active layer instead of silicon based semiconductor: applying a voltage to the gate of the device polarizes a channel in the polymer layer between the source and the drain electrodes of the devices. Ideally, only when an external voltage is applied to the gate is charge allowed to flow. However, OFETs and organic electronics in general are relatively young, especially compared to established semi-conductors. The goal of my work, and the labs work in general, is to understand the relationship between the structure of the polymers in organic electronic devices and the performance of the devices. In the case of OFETs, these metrics are the ratio between the "off" current flow and the "on" current flow (on/off ratio), the amount of current flow in the gate as a function of the external voltage and the distance between the electrodes (primary charge carrier mobility), and the voltage required to turn on the current (threshold voltage). All three areas require significant improvement to compete with current electronics.</p> 
-                    <p>
-                    My project, which investigated the properties of OFETs fabricated using a floating film, aimed to bridge the gap between usefulness and current work by reducing the fabrication cost of the devices, reducing the amount of light absorbed by the devices, increasing the flexibility of the devices, increasing the charge mobility, and allowing access to large scale fabrication. The main focus was on fabricating "Ultrathin" film devices, which films smaller than 10nm or about 3-4 molecular layers. These films address the flexibility, transparency, and cost issues by reducing the amount of material in the device. However, many ultrathin films suffer a negative effect in the electrical characteristics, meaning the devices are less useful even if they have benefits in other areas. Using the floating Film Transfer Method (FTM), we demonstrated that for N2200, a common semi-conducting polymer, maintains its high electron mobility even down to films only two molecular layers thick. </p>
-                    <p>
-                    This work was submitted to Advanced Electronics Material in December 2021. A copy of the manuscript is made available here:
-
-                    </p>
-                    <iframe src="Adv Elect Materials - 2022 - Steckmann - Ultrathin P NDI2OD‐T2  Films with High Electron Mobility in Both Bottom‐Gate and.pdf" style="width: 100%; height: calc(80vh);" frameborder="0"></iframe>
-        </div>
-        
-
-        
-    </body>
+                </p>
+                <iframe src="Adv Elect Materials - 2022 - Steckmann - Ultrathin P NDI2OD‐T2  Films with High Electron Mobility in Both Bottom‐Gate and.pdf" style="width: 100%; height: calc(80vh);" frameborder="0"></iframe>
+    </div>
+    <script>
+        includeHTML();
+    </script>
+</body>
 </html>
-<!-- <embed src="Universal_Gate_Decomposition.pdf" width="800px" height="2100px" /> -->

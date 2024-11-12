@@ -7,53 +7,12 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>   
     <link rel='stylesheet' href='style.css'>
     <link rel="icon" href="cartan.jpg">
-
 </head>
-
 
 <html>
     <body>
-        <div class="top-bar">   
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class="container-fluid">
- 
-                    <a class="navbar-brand">Thomas Steckmann</a>
-
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav mb-2 mb-lg-0">
-                            <li class="nav-item">
-                            <a class="nav-link active" href="http://www.thomassteckmann.com/">Home</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Portfolio
-                            </a>
-                            <ul class="dropdown-menu" style="padding-top: 0;" aria-labelledby="navbarDropdown">
-                                <li class="container-fluid" style='background-color: lightgray; text-align: center;'> <div class="mx-auto">Research </div></li>
-                                <li><a class="dropdown-item" href="quantum.html">Quantum Computing</a></li>
-                                <li><a class="dropdown-item" href="ofet.html">Organic Electronics</a></li>
-                                <li class="container-fluid" style='background-color: lightgray; text-align: center;'> <div class="mx-auto">Projects </div></li>
-                                <li><a class="dropdown-item" href="hackathons.html">Quantum Projects</a></li>
-                                <li><a class="dropdown-item" href="cryptography.html">Crytopgraphy</a></li>
-                                <li><a class="dropdown-item" href="symphony.html">Poetry</a></li>
-                            </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="Thomas_Steckmann_Resume_2021.pdf">CV</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://quantuminformationclub.wordpress.ncsu.edu/">Quantum Information Club</a>
-                            </li>
-                        </ul>
-                    </div>  
-                </div>
-            </nav>
-        </div>
-
+        <!-- Include header -->
+        <div w3-include-html="header.html"></div>
 
         <!-- Begin Main Page-->
         <div class="container mx-auto shadow-lg p-3 mb-5 rounded" style="margin-top: 100px; margin-left: 100px; margin-right: 100px; background-color: rgb(199 182 161); ">
@@ -101,7 +60,30 @@
             Finally, please feel free to contact me using my university email tmsteckm a-t umd d-o-t edu. I would be more than happy to discuss my research work or any other questions that may come up in applications. 
         </div>
         
-
-        
+        <script>
+            function includeHTML() {
+                var z, i, elmnt, file, xhttp;
+                z = document.getElementsByTagName("*");
+                for (i = 0; i < z.length; i++) {
+                    elmnt = z[i];
+                    file = elmnt.getAttribute("w3-include-html");
+                    if (file) {
+                        xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function() {
+                            if (this.readyState == 4) {
+                                if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+                                if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+                                elmnt.removeAttribute("w3-include-html");
+                                includeHTML();
+                            }
+                        }
+                        xhttp.open("GET", file, true);
+                        xhttp.send();
+                        return;
+                    }
+                }
+            }
+            includeHTML();
+        </script>
     </body>
 </html>
