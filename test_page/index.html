@@ -184,6 +184,7 @@
 
             const carousel = document.querySelector('#portfolioCarousel');
             const carouselInstance = bootstrap.Carousel.getInstance(carousel);
+            carouselInstance.date-setInterval(1000000);
             carouselInstance.pause();
 
             overlay.addEventListener('click', () => {
@@ -191,6 +192,7 @@
                 separator.remove();
                 moreInfo.remove();
                 overlay.remove();
+                carouselInstance.date-setInterval(5000);
                 carouselInstance.cycle();
             });
         }
