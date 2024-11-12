@@ -170,7 +170,10 @@
         window.addEventListener('load', () => {
             const carousel = document.querySelector('#portfolioCarousel');
             carouselInstance = new bootstrap.Carousel(carousel, {
-                interval: false // Disable auto-rotation
+                interval: 999999999, // Very large number to effectively pause auto-rotation
+                pause: 'hover', // Pauses the cycling of the carousel on mouseenter and resumes on mouseleave
+                wrap: true, // Whether the carousel should cycle continuously
+                keyboard: true // Whether the carousel should react to keyboard events
             });
             generateCarouselItems();
         });
