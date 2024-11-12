@@ -84,6 +84,11 @@
         .portfolio-card.expanded .card-body {
             text-align: left;
         }
+        .portfolio-card.expanded .card-tags {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+        }
         .overlay {
             position: fixed;
             top: 0;
@@ -263,15 +268,22 @@
             document.body.appendChild(overlay);
 
             card.classList.add('expanded');
+            const separator = document.createElement('hr');
             const moreInfo = document.createElement('p');
             moreInfo.className = 'card-text';
             moreInfo.innerHTML = item.moreInfo;
+            card.querySelector('.card-body').appendChild(separator);
             card.querySelector('.card-body').appendChild(moreInfo);
+
+            const carousel = document.querySelector('#portfolioCarousel');
+            carousel.carousel('pause');
 
             overlay.addEventListener('click', () => {
                 card.classList.remove('expanded');
+                separator.remove();
                 moreInfo.remove();
                 overlay.remove();
+                carousel.carousel('cycle');
             });
         }
 
