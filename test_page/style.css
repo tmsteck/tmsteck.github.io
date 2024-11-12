@@ -49,14 +49,14 @@ footer a {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 90%;
     max-width: 90%;
-    height: 90%;
     max-height: 90%;
     z-index: 1050;
     overflow-y: auto;
     background-color: white;
     backdrop-filter: none;
+    padding: 20px; /* Optional: Add padding for better appearance */
+    box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
 }
 .portfolio-card.expanded .card-body {
     text-align: left;
