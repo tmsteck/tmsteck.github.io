@@ -1,0 +1,64 @@
+/* Custom CSS for enhanced accessibility */
+
+/* Large touch target for better accessibility */
+.audio-button {
+    min-width: 200px;
+    min-height: 200px;
+    font-size: 1.5rem;
+    padding: 2rem;
+    margin: 2rem;
+    
+    /* High contrast colors for visibility */
+    background-color: #2C3E50;
+    color: #ffffff;
+    
+    /* Rounded corners for visual appeal */
+    border-radius: 15px;
+    
+    /* Smooth transitions for visual feedback */
+    transition: all 0.3s ease;
+    
+    /* Remove default button styling */
+    border: none;
+    
+    /* Ensure button maintains shape */
+    box-sizing: border-box;
+}
+
+/* Enhanced visual feedback on interaction */
+.audio-button:hover, 
+.audio-button:focus {
+    background-color: #34495E;
+    transform: scale(1.05);
+    
+    /* Clear outline for keyboard navigation */
+    outline: 3px solid #3498DB;
+    outline-offset: 2px;
+}
+
+/* Responsive container */
+.content-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+/* Status message styling */
+#status-message {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    min-height: 2rem;
+    text-align: center;
+}
+
+/* Responsive design for different screen sizes */
+@media (max-width: 768px) {
+    .audio-button {
+        min-width: 150px;
+        min-height: 150px;
+        font-size: 1.2rem;
+        padding: 1.5rem;
+    }
+}

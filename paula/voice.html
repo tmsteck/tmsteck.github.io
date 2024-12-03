@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessible Audio Player</title>
+    <!-- Import Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Import custom styles -->
+    <link href="voice_style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Main content wrapper -->
+    <div class="content-wrapper">
+        <div class="container text-center">
+            <!-- Accessible header -->
+            <h1 class="mb-4">Audio Player</h1>
+            
+            <!-- Audio element (hidden but available for screen readers) -->
+            <audio id="audioPlayer" preload="auto">
+                <source src="voice_test_1.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+
+            <!-- Large, accessible button -->
+            <button 
+                id="playButton" 
+                class="audio-button"
+                aria-label="Play audio"
+                role="button"
+                tabindex="0">
+                Play Audio
+            </button>
+
+            <!-- Status message for screen readers -->
+            <div id="status-message" aria-live="polite"></div>
+        </div>
+    </div>
+
+    <!-- Import Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <!-- Import custom scripts -->
+    <script src="voice_script.js"></script>
+</body>
+</html>
