@@ -1,56 +1,87 @@
-// Initialize variables
-const audioPlayer = document.getElementById('audioPlayer');
-const playButton = document.getElementById('playButton');
+// Audio elements
+const channelUpSound = document.getElementById('channelUpSound');
+const channelDownSound = document.getElementById('channelDownSound');
+const volumeUpSound = document.getElementById('volumeUpSound');
+const volumeDownSound = document.getElementById('volumeDownSound');
+const powerSound = document.getElementById('powerSound');
+
+// Buttons
+const channelUpButton = document.getElementById('channelUp');
+const channelDownButton = document.getElementById('channelDown');
+const volumeUpButton = document.getElementById('volumeUp');
+const volumeDownButton = document.getElementById('volumeDown');
+const powerButton = document.getElementById('powerButton');
+
+// Status message
 const statusMessage = document.getElementById('status-message');
-let isPlaying = false;
 
 /**
- * Updates the button state and associated ARIA labels
- * @param {boolean} playing - Whether the audio is currently playing
+ * Plays the specified audio element and shows a message
+ * @param {HTMLAudioElement} audio - The audio element to play
+ * @param {string} message - The message to display
  */
-function updateButtonState(playing) {
-    isPlaying = playing;
-    playButton.textContent = isPlaying ? 'Pause Audio' : 'Play Audio';
-    playButton.setAttribute('aria-label', isPlaying ? 'Pause audio' : 'Play audio');
-    statusMessage.textContent = isPlaying ? 'Audio is playing' : 'Audio is paused';
+function playAndShowMessage(audio, message) {
+    // Reset and play audio
+    audio.currentTime = 0;
+    audio.play().catch(error => {
+        console.error('Error playing audio:', error);
+    });
+    
+    // Update status message
+    statusMessage.textContent = message;
 }
 
-/**
- * Toggles audio playback between play and pause states
- */
-function toggleAudio() {
-    if (isPlaying) {
-        audioPlayer.pause();
-    } else {
-        // Reset audio if it has ended
-        if (audioPlayer.ended) {
-            audioPlayer.currentTime = 0;
-        }
-        audioPlayer.play().catch(error => {
-            console.error('Error playing audio:', error);
-            statusMessage.textContent = 'Error playing audio. Please try again.';
-        });
-    }
-}
+// Button click handlers
+channelUpButton.addEventListener('click', () => {
+    playAndShowMessage(channelUpSound, 'Changing to next channel');
+});
 
-// Event Listeners
-playButton.addEventListener('click', toggleAudio);
+channelDownButton.addEventListener('click', () => {
+    playAndShowMessage(channelDownSound, 'Changing to previous channel');
+});
 
-// Keyboard support for space and enter keys
-playButton.addEventListener('keydown', (event) => {
-    if (event.key === ' ' || event.key === 'Enter') {
-        event.preventDefault();
-        toggleAudio();
+volumeUpButton.addEventListener('click', () => {
+    playAndShowMessage(volumeUpSound, 'Increasing volume');
+});
+
+volumeDownButton.addEventListener('click', () => {
+    playAndShowMessage(volumeDownSound, 'Decreasing volume');
+});
+
+powerButton.addEventListener('click', () => {
+    playAndShowMessage(powerSound, 'Power button pressed');
+});
+
+// Keyboard support
+document.addEventListener('keydown', (event) => {
+    switch(event.key) {
+        case 'ArrowUp':
+            event.preventDefault();
+            channelUpButton.click();
+            break;
+        case 'ArrowDown':
+            event.preventDefault();
+            channelDownButton.click();
+            break;
+        case 'ArrowRight':
+            event.preventDefault();
+            volumeUpButton.click();
+            break;
+        case 'ArrowLeft':
+            event.preventDefault();
+            volumeDownButton.click();
+            break;
+        case 'Enter':
+            event.preventDefault();
+            powerButton.click();
+            break;
     }
 });
 
-// Audio state change listeners
-audioPlayer.addEventListener('play', () => updateButtonState(true));
-audioPlayer.addEventListener('pause', () => updateButtonState(false));
-audioPlayer.addEventListener('ended', () => updateButtonState(false));
-
-// Error handling
-audioPlayer.addEventListener('error', () => {
-    statusMessage.textContent = 'Error loading audio file';
-    playButton.disabled = true;
+// Error handling for audio
+[channelUpSound, channelDownSound, volumeUpSound, volumeDownSound, powerSound].forEach(audio => {
+    audio.addEventListener('error', () => {
+        console.error('Error loading audio file');
+        statusMessage.textContent = 'Error loading sound effect';
+    });
 });

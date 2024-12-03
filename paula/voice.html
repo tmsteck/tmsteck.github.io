@@ -3,43 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accessible Audio Player</title>
-    <!-- Import Bootstrap -->
+    <title>Remote Control</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Import custom styles -->
     <link href="voice_style.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Main content wrapper -->
+    <!-- Audio elements -->
+    <audio id="channelUpSound">
+        <source src="channel_up.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="channelDownSound">
+        <source src="channel_down.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="volumeUpSound">
+        <source src="volume_up.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="volumeDownSound">
+        <source src="volume_down.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="powerSound">
+        <source src="tv_on.mp3" type="audio/mpeg">
+    </audio>
+    
     <div class="content-wrapper">
-        <div class="container text-center">
-            <!-- Accessible header -->
-            <h1 class="mb-4">Audio Player</h1>
+        <div class="container">
+            <h1 class="text-center mb-4">Remote Control</h1>
             
-            <!-- Audio element (hidden but available for screen readers) -->
-            <audio id="audioPlayer" preload="auto">
-                <source src="voice_test_1.mp3" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
+            <div class="remote-container">
+                <!-- Top button -->
+                <div class="row justify-content-center mb-3">
+                    <div class="col-4">
+                        <button id="channelUp" class="remote-button btn btn-primary">
+                            Channel Up
+                        </button>
+                    </div>
+                </div>
 
-            <!-- Large, accessible button -->
-            <button 
-                id="playButton" 
-                class="audio-button"
-                aria-label="Play audio"
-                role="button"
-                tabindex="0">
-                Play Audio
-            </button>
+                <!-- Middle row -->
+                <div class="row justify-content-center mb-3">
+                    <div class="col-4">
+                        <button id="volumeDown" class="remote-button btn btn-primary">
+                            Sound Down
+                        </button>
+                    </div>
+                    <div class="col-4">
+                        <button id="powerButton" class="remote-button btn btn-danger">
+                            Turn On
+                        </button>
+                    </div>
+                    <div class="col-4">
+                        <button id="volumeUp" class="remote-button btn btn-primary">
+                            Sound Up
+                        </button>
+                    </div>
+                </div>
 
-            <!-- Status message for screen readers -->
-            <div id="status-message" aria-live="polite"></div>
+                <!-- Bottom button -->
+                <div class="row justify-content-center">
+                    <div class="col-4">
+                        <button id="channelDown" class="remote-button btn btn-primary">
+                            Channel Down
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status message -->
+            <div id="status-message" aria-live="polite" class="text-center mt-4"></div>
         </div>
     </div>
 
-    <!-- Import Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
-    <!-- Import custom scripts -->
     <script src="voice_script.js"></script>
 </body>
 </html>
