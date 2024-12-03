@@ -1,16 +1,26 @@
 // Audio elements
-const channelUpSound = document.getElementById('channelUpSound');
-const channelDownSound = document.getElementById('channelDownSound');
-const volumeUpSound = document.getElementById('volumeUpSound');
-const volumeDownSound = document.getElementById('volumeDownSound');
-const powerSound = document.getElementById('powerSound');
+const audioElements = {
+    alexa: document.getElementById('alexaSound'),
+    setInput: document.getElementById('setInputSound'),
+    fireStick: document.getElementById('fireStickSound'),
+    tvOff: document.getElementById('tvOffSound'),
+    channelUp: document.getElementById('channelUpSound'),
+    channelDown: document.getElementById('channelDownSound'),
+    volumeUp: document.getElementById('volumeUpSound'),
+    volumeDown: document.getElementById('volumeDownSound'),
+    tvOn: document.getElementById('tvOnSound')
+};
 
-// Buttons
-const channelUpButton = document.getElementById('channelUp');
-const channelDownButton = document.getElementById('channelDown');
-const volumeUpButton = document.getElementById('volumeUp');
-const volumeDownButton = document.getElementById('volumeDown');
-const powerButton = document.getElementById('powerButton');
+// Button elements
+const alexaButton = document.getElementById('alexaButton');
+const cableButton = document.getElementById('cableButton');
+const fireStickButton = document.getElementById('fireStickButton');
+const tvOffButton = document.getElementById('tvOffButton');
+const channelUpButton = document.getElementById('channelUpButton');
+const channelDownButton = document.getElementById('channelDownButton');
+const volumeUpButton = document.getElementById('volumeUpButton');
+const volumeDownButton = document.getElementById('volumeDownButton');
+const tvOnButton = document.getElementById('tvOnButton');
 
 // Status message
 const statusMessage = document.getElementById('status-message');
@@ -25,6 +35,7 @@ function playAndShowMessage(audio, message) {
     audio.currentTime = 0;
     audio.play().catch(error => {
         console.error('Error playing audio:', error);
+        statusMessage.textContent = 'Error playing audio';
     });
     
     // Update status message
@@ -32,54 +43,27 @@ function playAndShowMessage(audio, message) {
 }
 
 // Button click handlers
-channelUpButton.addEventListener('click', () => {
-    playAndShowMessage(channelUpSound, 'Changing to next channel');
-});
+const buttonActions = [
+    { button: alexaButton, audio: audioElements.alexa, message: 'Calling Alexa' },
+    { button: cableButton, audio: audioElements.setInput, message: 'Switching to cable' },
+    { button: fireStickButton, audio: audioElements.fireStick, message: 'Turning on Fire Stick' },
+    { button: tvOffButton, audio: audioElements.tvOff, message: 'Turning off TV' },
+    { button: channelUpButton, audio: audioElements.channelUp, message: 'Channel Up' },
+    { button: channelDownButton, audio: audioElements.channelDown, message: 'Channel Down' },
+    { button: volumeUpButton, audio: audioElements.volumeUp, message: 'Volume Up' },
+    { button: volumeDownButton, audio: audioElements.volumeDown, message: 'Volume Down' },
+    { button: tvOnButton, audio: audioElements.tvOn, message: 'Turning on TV' }
+];
 
-channelDownButton.addEventListener('click', () => {
-    playAndShowMessage(channelDownSound, 'Changing to previous channel');
-});
-
-volumeUpButton.addEventListener('click', () => {
-    playAndShowMessage(volumeUpSound, 'Increasing volume');
-});
-
-volumeDownButton.addEventListener('click', () => {
-    playAndShowMessage(volumeDownSound, 'Decreasing volume');
-});
-
-powerButton.addEventListener('click', () => {
-    playAndShowMessage(powerSound, 'Power button pressed');
-});
-
-// Keyboard support
-document.addEventListener('keydown', (event) => {
-    switch(event.key) {
-        case 'ArrowUp':
-            event.preventDefault();
-            channelUpButton.click();
-            break;
-        case 'ArrowDown':
-            event.preventDefault();
-            channelDownButton.click();
-            break;
-        case 'ArrowRight':
-            event.preventDefault();
-            volumeUpButton.click();
-            break;
-        case 'ArrowLeft':
-            event.preventDefault();
-            volumeDownButton.click();
-            break;
-        case 'Enter':
-            event.preventDefault();
-            powerButton.click();
-            break;
-    }
+// Add click handlers to all buttons
+buttonActions.forEach(({ button, audio, message }) => {
+    button.addEventListener('click', () => {
+        playAndShowMessage(audio, message);
+    });
 });
 
 // Error handling for audio
-[channelUpSound, channelDownSound, volumeUpSound, volumeDownSound, powerSound].forEach(audio => {
+Object.values(audioElements).forEach(audio => {
     audio.addEventListener('error', () => {
         console.error('Error loading audio file');
         statusMessage.textContent = 'Error loading sound effect';

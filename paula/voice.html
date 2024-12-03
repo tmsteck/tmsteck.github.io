@@ -3,12 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Remote Control</title>
+    <title>TV Controller</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="voice_style.css" rel="stylesheet">
 </head>
 <body>
     <!-- Audio elements -->
+    <audio id="alexaSound">
+        <source src="alexa.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="setInputSound">
+        <source src="set_input.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="fireStickSound">
+        <source src="fire_stick_on.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="tvOffSound">
+        <source src="tv_off.mp3" type="audio/mpeg">
+    </audio>
     <audio id="channelUpSound">
         <source src="channel_up.mp3" type="audio/mpeg">
     </audio>
@@ -21,48 +33,77 @@
     <audio id="volumeDownSound">
         <source src="volume_down.mp3" type="audio/mpeg">
     </audio>
-    <audio id="powerSound">
+    <audio id="tvOnSound">
         <source src="tv_on.mp3" type="audio/mpeg">
     </audio>
     
     <div class="content-wrapper">
         <div class="container">
-            <h1 class="text-center mb-4">Remote Control</h1>
+            <h1 class="text-center mb-4">TV Controller</h1>
             
             <div class="remote-container">
-                <!-- Top button -->
-                <div class="row justify-content-center mb-3">
+                <!-- Top wide button for Alexa -->
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <button id="alexaButton" class="remote-button btn btn-info wide-button">
+                            Alexa!
+                        </button>
+                    </div>
+                </div>
+
+                <!-- First row of grid -->
+                <div class="row mb-3">
                     <div class="col-4">
-                        <button id="channelUp" class="remote-button btn btn-primary">
+                        <button id="cableButton" class="remote-button btn btn-primary">
+                            Turn on Cable
+                        </button>
+                    </div>
+                    <div class="col-4">
+                        <button id="channelUpButton" class="remote-button btn btn-success">
                             Channel Up
                         </button>
                     </div>
-                </div>
-
-                <!-- Middle row -->
-                <div class="row justify-content-center mb-3">
                     <div class="col-4">
-                        <button id="volumeDown" class="remote-button btn btn-primary">
-                            Sound Down
-                        </button>
-                    </div>
-                    <div class="col-4">
-                        <button id="powerButton" class="remote-button btn btn-danger">
-                            Turn On
-                        </button>
-                    </div>
-                    <div class="col-4">
-                        <button id="volumeUp" class="remote-button btn btn-primary">
-                            Sound Up
+                        <button id="fireStickButton" class="remote-button btn btn-warning">
+                            Turn Fire Stick On
                         </button>
                     </div>
                 </div>
 
-                <!-- Bottom button -->
-                <div class="row justify-content-center">
+                <!-- Second row of grid -->
+                <div class="row mb-3">
                     <div class="col-4">
-                        <button id="channelDown" class="remote-button btn btn-primary">
+                        <button id="volumeDownButton" class="remote-button btn btn-success">
+                            Volume Down
+                        </button>
+                    </div>
+                    <div class="col-4">
+                        <button id="tvOnButton" class="remote-button btn btn-success">
+                            Turn TV On
+                        </button>
+                    </div>
+                    <div class="col-4">
+                        <button id="volumeUpButton" class="remote-button btn btn-success">
+                            Volume Up
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Third row of grid -->
+                <div class="row">
+                    <div class="col-4">
+                        <button id="tvOffButton" class="remote-button btn btn-danger">
+                            Turn TV Off
+                        </button>
+                    </div>
+                    <div class="col-4">
+                        <button id="channelDownButton" class="remote-button btn btn-success">
                             Channel Down
+                        </button>
+                    </div>
+                    <div class="col-4">
+                        <button disabled class="remote-button btn btn-secondary">
+                            <!-- Empty -->
                         </button>
                     </div>
                 </div>
