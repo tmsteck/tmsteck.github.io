@@ -7,7 +7,9 @@ const audioElements = {
     channelUp: document.getElementById('channelUpSound'),
     channelDown: document.getElementById('channelDownSound'),
     volumeUp: document.getElementById('volumeUpSound'),
+    volumeUpFive: document.getElementById('volumeUpFiveSound'),
     volumeDown: document.getElementById('volumeDownSound'),
+    volumeDownFive: document.getElementById('volumeDownFiveSound'),
     tvOn: document.getElementById('tvOnSound')
 };
 
@@ -21,6 +23,8 @@ const channelDownButton = document.getElementById('channelDownButton');
 const volumeUpButton = document.getElementById('volumeUpButton');
 const volumeDownButton = document.getElementById('volumeDownButton');
 const tvOnButton = document.getElementById('tvOnButton');
+const raiseFiveButton = document.getElementById('raiseFiveButton');
+const volumeDownFiveButton = document.getElementById('volumeDownFiveButton');
 
 // Status message
 const statusMessage = document.getElementById('status-message');
@@ -50,7 +54,9 @@ const buttonActions = [
     { button: tvOffButton, audio: audioElements.tvOff, message: 'Turning off TV' },
     { button: channelUpButton, audio: audioElements.channelUp, message: 'Channel Up' },
     { button: channelDownButton, audio: audioElements.channelDown, message: 'Channel Down' },
-    { button: volumeUpButton, audio: audioElements.volumeUp, message: 'Volume Up' },
+    { button: volumeUpButton, audio: audioElements.volumeUpFive, message: 'Volume Up' },
+    { button: raiseFiveButton, audio: audioElements.volumeUpFive, message: 'Volume Up 5' },
+    { button: volumeDownFiveButton, audio: audioElements.volumeDownFive, message: 'Volume Down 5' },
     { button: volumeDownButton, audio: audioElements.volumeDown, message: 'Volume Down' },
     { button: tvOnButton, audio: audioElements.tvOn, message: 'Turning on TV' }
 ];
