@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV Controller</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="voice_style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Audio elements -->
+    <audio id="alexaSound">
+        <source src="Alexa.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="setInputSound">
+        <source src="antenna_on.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="fireStickSound">
+        <source src="fire_on.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="tvOffSound">
+        <source src="tv_off.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="channelUpSound">
+        <source src="channel_up.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="channelDownSound">
+        <source src="channel_down.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="volumeUpSound">
+        <source src="volume_up.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="volumeDownSound">
+        <source src="volume_down.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="tvOnSound">
+        <source src="tv_on.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="volumeUpFiveSound">
+        <source src="raise_5.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="volumeDownFiveSound">
+        <source src="lower_5.mp3" type="audio/mpeg">
+    </audio>
+    
+    <div class="content-wrapper">
+        <div class="container">
+            <h1 class="text-center mb-6">TV Controller</h1>
+            
+            <div class="remote-container">
+                <!-- Top wide button for Alexa -->
+                <div class="row mb-3">
+                    <div class="col-11">
+                        <button id="alexaButton" class="remote-button btn btn-info wide-button">
+                            Alexa!
+                        </button>
+                    </div>
+                </div>
+
+                <!-- First row of grid -->
+                <div class="row mb-3">
+                    <div class="col-1">
+                        <button disabled class="remote-button btn btn-secondary">
+                            <!-- Empty -->
+                        </button>
+                    </div>
+                    <div class="col-3">
+                        <button id="cableButton" class="remote-button btn btn-primary">
+                            Turn on Cable
+                        </button>
+                    </div>
+                    <div class="col-3">
+                        <button id="channelUpButton" class="remote-button btn btn-success">
+                            Channel Up
+                        </button>
+                    </div>
+                    <div class="col-3">
+                        <button id="fireStickButton" class="remote-button btn btn-warning">
+                            Fire Stick On
+                        </button>
+                    </div>
+                    <div class="col-1">
+                        <button disabled class="remote-button btn btn-secondary">
+                            <!-- Empty -->
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Second row of grid -->
+                <div class="row mb-3">
+                    <div class="col-2">
+                        <button id="volumeDownFiveButton" class="remote-button btn btn-primary">
+                            🔊↓ (5)
+                        </button>
+                    </div>
+                    <div class="col-2">
+                        <button id="volumeDownButton" class="remote-button btn btn-success">
+                            🔊↓ (10)
+                        </button>
+                    </div>
+                    <div class="col-3">
+                        <button id="tvOnButton" class="remote-button btn btn-success">
+                            Turn TV On
+                        </button>
+                    </div>
+                    <div class="col-2">
+                        <button id="volumeUpButton" class="remote-button btn btn-success">
+                            🔊↑ (10)
+                        </button>
+                    </div>
+                    <div class="col-2">
+                        <button id="volumeUpFiveButton" class="remote-button btn btn-primary">
+                            🔊↑ (5)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Third row of grid -->
+                <div class="row mb-6">
+                    <div class="col-1">
+                        <button disabled class="remote-button btn btn-secondary">
+                            <!-- Empty -->
+                        </button>
+                    </div>
+                    <div class="col-3">
+                        <button id="tvOffButton" class="remote-button btn btn-danger">
+                            Turn TV Off
+                        </button>
+                    </div>
+                    <div class="col-3">
+                        <button id="channelDownButton" class="remote-button btn btn-success">
+                            Channel Down
+                        </button>
+                    </div>
+                    <div class="col-3">
+                        <button disabled class="remote-button btn btn-secondary">
+                            <!-- Empty -->
+                        </button>
+                    </div>
+                    <div class="col-1">
+                        <button disabled class="remote-button btn btn-secondary">
+                            <!-- Empty -->
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status message -->
+            <div id="status-message" aria-live="polite" class="text-center mt-4"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script src="voice_script.js"></script>
+</body>
+</html>

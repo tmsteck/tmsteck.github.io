@@ -1,0 +1,37 @@
+body {
+    background-color: #e0e0e0; /* New light gray background */
+    margin: 0;
+}
+.top-bar {
+    height: auto;
+    color: white;
+    background-color: #0056b3; /* Blue background for top bar */
+}
+a {
+    color: #ff6600; /* Orange color for links */
+}
+a:hover {
+    color: #0056b3; /* Blue color for hovered links */
+}
+#indexpagebox {
+    padding: 1em;
+    background-color: white; /* White background for boxes */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for floating effect */
+    border-radius: 8px; /* Rounded corners */
+    border: 1px solid #ff6600; /* Orange border for boxes */
+}
+.border-dark {
+    margin: 0.5em;
+    border-color: #0056b3; /* Blue border for dark borders */
+}
+.container {
+    background-color: white; /* White background for main container */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for floating effect */
+    border-radius: 8px; /* Rounded corners */
+    padding: 2em;
+    border: 1px solid #ff6600; /* Orange border for main container */
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: transparent; /* Transparent background for carousel controls */
+}

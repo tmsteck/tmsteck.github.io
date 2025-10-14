@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Thomas Steckmann</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>   
+    <link rel='stylesheet' href='style.css'>
+</head>
+<body>
+    <!-- Include header -->
+    <div w3-include-html="header.html"></div>
+
+    <div class="container mx-auto shadow-lg p-3 mb-5 rounded" style="margin-top: 100px; margin-left: 100px; margin-right: 100px; background-color: rgb(199 182 161); ">
+        <div style="border-width: 1em;" class="border border-dark">
+            <div class='container' id="indexpagebox">
+                <h3>
+                    Cryptography
+                </h3>
+            Here is a final report on a cryptographic function, which was written as the final project for a course in cryptography. 
+            I chose to focus on a lattice based hash function which has been proposed as an efficient hash function which is resistant to attacks on a quantum computer.
+            While the math does not necessarily focus on quantum computers, the function is unique because it is based on a proof of a problem which is hard for a quantum computer. 
+            Unfortuntately the specific hash function is based on an easier case of the quantum-hard problem, but it is still an interesting
+            algorithm which is distanced from the standard Diffie-Hellman assumption. 
+        </div>
+        </div>
+        </p>
+        <div class='container-md' width = "90%">
+            <iframe src="Lattice_based_Hash-ThomasSteckmann.pdf"  style="width: 100%; height: calc(80vh);"  frameborder="0"></iframe>
+        </div>
+    </div>
+    <script>
+        includeHTML();
+    </script>
+</body>
+</html>
+<!-- <embed src="Universal_Gate_Decomposition.pdf" width="800px" height="2100px" /> -->
