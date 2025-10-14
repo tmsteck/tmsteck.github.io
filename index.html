@@ -1,84 +1,89 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Thomas Steckmann</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>   
-    <link rel='stylesheet' href='style.css'>
-    <link rel="icon" href="cartan.jpg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Include header -->
-    <div w3-include-html="header.html"></div>
+    <!-- Include Header -->
+    <div id="header"></div>
 
-    <!-- Begin Main Page-->
-    <div class="container mx-auto shadow-lg p-3 mb-5 rounded text-center" style="margin-top: 100px; background-color: white;">
-        <img src="Thomas_2020.jpg" alt="Thomas Steckmann" class="img-thumbnail border border-dark" style="height: 20em; width: auto; margin:2em;">
-        <h3>Welcome!</h3>
-        <p>My name is Thomas Steckmann, and this website is designed to host a portfolio of the research and projects I have completed at NC State University while completing my Bachelor’s degrees in Physics and Mathematics and going forward during my graduate degree at the University of Maryland, College Park. Generally, my research has focused on the experimental or computational study of condensed matter physics systems, primarily in organic electronics and Hamiltonian simulation. Below is a list of the major research projects I have worked on, and links to the article (where available). More details can be found for each project in the above navigation links.</p>
-    </div>
+    <!-- Landing Page -->
+    <header id="landing" class="text-center py-5">
+        <div class="container">
+            <h1>Thomas Steckmann</h1>
+            <p class="lead">Noisy quantum computing and information, plus some polymer electronics. Maybe blog posts eventually</p>
+        </div>
+    </header>
 
-    <!-- Carousel for project descriptions -->
-    <div id="projectCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="container" id="indexpagebox">
-                    <b><a href="quantum.html">Cartan Decomposition for Hamiltonian Fast-Forwarding</a></b> (2020-2021):
-                    Starting at Oak Ridge during a 2020 Summer Undergraduate Laboratory Internship, I worked on applying methods of Lie algebraic decomposition to efficiently implementing time evolution operators for digital simulation of systems on quantum computers. We successfully found an algorithm based on a classical minimization problem which works well for certain types of Hamiltonians: exactly which Hamiltonians are best is of continuing study. However, for a certain class of models which can be mapped to non-interacting fermions on a 1D lattice, our method works in polynomial time to simulate the dynamics of the system at any target time with only a fixed quantum circuit gate cost. The article, submitted to Physical Review Letters, can be found here: <a href="https://arxiv.org/abs/2104.00728">Fixed Depth Hamiltonian Simulation via Cartan Decomposition</a>
-                </div>
+    <!-- Main Box -->
+    <main class="container my-5">
+        <div class="row about-section">
+            <div class="col-md-4 text-center">
+                <img src="Thomas_Steckmann_2023.png" alt="Thomas Steckmann" class="img-fluid rounded-circle">
             </div>
-            <div class="carousel-item">
-                <div class="container" id="indexpagebox">
-                    <b><a href="quantum.html">Dynamical Mean Field Theory on Noisy Quantum Systems</a></b> (2021): As a follow-up to our work on Cartan decomposition and to explore the usefulness of the algorithm in the near term, we have successfully modeled the Mott-insulator phase transition in the Hubbard model on noisy quantum hardware from IBM. The article is available on arXiv: <a href="https://arxiv.org/abs/2112.05688">Simulating the Mott transition on a noisy digital quantum computer via Cartan-based fast-forwarding circuits</a>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="container" id="indexpagebox">
-                    <b><a href="ofet.html">Charge Transport in floated Ultrathin Films</a></b> (2018-2020): Separate from my work on quantum computing, the goal of this project was the understand the properties of semi-conducting polymer films when fabricated using a water floating method. We studied a specific polymer known as N2200, which is a well studied and reasonably good N-type semiconductor. In prior studies, attempts at fabricating transistors using N2200 in ultrathin films, down to single molecular layers of the polymer, observed significant degradation of the mobility of the charges. Using our water floating method, we observed instead, at the worst, mobilities in ultrathin films comparable to the properties of films which used a significantly thicker polymer layers. In addition, the good transport properties were maintained in device configurations that were not feasible for thicker films. Study of the microstructures in the film revealed that the floated filmes maintained better polymer alignment over longer ranges, which is known to contribute to strong electronic mobility. This work was submitted to Advanced Electronic Materials in December 2021. A copy of the manuscript can be download from this link: <a href='Adv Elect Materials - 2022 - Steckmann - Ultrathin P NDI2OD‐T2  Films with High Electron Mobility in Both Bottom‐Gate and.pdf'>Adv Elect Materials - 2022 - Steckmann - Ultrathin P NDI2OD‐T2 Films with High Electron Mobility in Both Bottom‐Gate and.pdf Throughout The Film</a>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="container" id="indexpagebox">
-                    <b>Lax Dynamics in Cartan Decomposition</b> (2021): With Prof. Moody Chu, I have been working to extend our understanding of the Cartan Decomposition algorithm used in our "Fixed Depth Hamiltonian Simulation via Cartan Decomposition" work. A key step in the algorithm is finding a set of rotation angles, which has a runtime that scales in polynomial time but a rather large polynomial. Instead, we propose using the study of Lax dynamics to compute the angles for the rotations used in the decomposition. This provides an exact solution to the minimization problem, and avoids costly and often times ineffective numerical optimization. This is very much a work in progress, but I would be happy to discuss the results.
-                </div>
+            <div class="col-md-8">
+                <h2>About Me</h2>
+                <p id="about">  
+                    Thomas Steckmann researches the interface between quantum subroutines (algorithms, error mitigation, and error correction) and noisy quantum hardware. He is a PhD student at the University of Maryland, College Park, where he is advised by Alexey Gorshkov and Michael Gullans in the <a href="https://quics.umd.edu/people/thomas-steckmann">Joint Center for Quantum Information and Computer Science (QuICS)</a>. His recent work focuses on mitigating the specific deficiencies of current quantum hardware, including trapped-ion, neutral-atom, and superconducting qubit systems. Starting as an undergraduate at NC State, and through continuing collaborations, he additionally works on Hamiltonian simulation for NISQ devices with applications to condensed matter physics. More information about specific projects can be found below. Currently interested in Summer 2026 quantum algorithms internships. 
+                </p>
             </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#projectCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#projectCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
+    </main>
 
-    <script>
-        function includeHTML() {
-            var z, i, elmnt, file, xhttp;
-            z = document.getElementsByTagName("*");
-            for (i = 0; i < z.length; i++) {
-                elmnt = z[i];
-                file = elmnt.getAttribute("w3-include-html");
-                if (file) {
-                    xhttp = new XMLHttpRequest();
-                    xhttp.onreadystatechange = function() {
-                        if (this.readyState == 4) {
-                            if (this.status == 200) {elmnt.innerHTML = this.responseText;}
-                            if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
-                            elmnt.removeAttribute("w3-include-html");
-                            includeHTML();
-                        }
-                    }
-                    xhttp.open("GET", file, true);
-                    xhttp.send();
-                    return;
-                }
-            }
-        }
-        includeHTML();
-    </script>
+        <!-- CV Section -->
+        <section id="cv" class="container my-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="cv-card p-4 p-md-5 text-center shadow-sm rounded-4">
+                        <h2 class="h3 mb-3">Curriculum Vitae</h2>
+                        <p class="mb-4">Download my full CV and explore my publications on Google Scholar.</p>
+                        <div class="d-flex flex-column flex-md-row gap-3 justify-content-center">
+                            <a class="btn btn-primary btn-lg" href="TS_CV_2025.pdf" target="_blank" rel="noopener">View CV (PDF)</a>
+                            <a class="btn btn-outline-primary btn-lg" href="https://scholar.google.com/citations?user=8JeFGiIAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="container my-5">
+        <h2 class="text-center mb-4"> Research Portfolio</h2>
+        <div id="portfolioCarousel" class="carousel slide" data-bs-ride="false" aria-live="polite">
+            <div class="carousel-inner">
+                <!-- Carousel items will be dynamically generated -->
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#portfolioCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#portfolioCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+            <div class="carousel-indicators">
+                <!-- Indicators will be dynamically generated -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="text-center py-4">
+        <div class="container">
+            <p>Get in touch! Email: [first-initial]m[last-initial]teckm@gmail.com</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script> fetch('header.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('header').innerHTML = data;
+        });</script>
+    <script src="portfolio.js"></script>
+
 </body>
 </html>
