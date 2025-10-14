@@ -66,6 +66,30 @@ footer a {
     font-weight: 500;
 }
 
+.cv-card {
+    background: linear-gradient(135deg, rgba(21, 88, 176, 0.08), rgba(255, 160, 122, 0.1));
+    border: 1px solid rgba(21, 88, 176, 0.15);
+}
+
+.cv-card .btn {
+    padding-inline: 2rem;
+}
+
+.cv-card .btn-outline-primary {
+    border-width: 2px;
+}
+
+@media (max-width: 767.98px) {
+    .cv-card .btn {
+        width: 100%;
+    }
+}
+
+.portfolio-card .btn {
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
 .carousel-inner {
     padding: 1.5rem 0;
 }
@@ -145,6 +169,18 @@ footer a {
 .portfolio-card.expanded .badge {
     background-color: rgba(21, 88, 176, 0.12);
     color: var(--primary-color);
+}
+
+.portfolio-card.expanded .overlay-copy p:last-child {
+    margin-bottom: 0;
+}
+
+.portfolio-card.expanded .list-inline {
+    gap: 0.5rem;
+}
+
+.portfolio-card.expanded .list-inline-item {
+    margin-right: 0;
 }
 
 @media (max-width: 767.98px) {

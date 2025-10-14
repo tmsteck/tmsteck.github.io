@@ -1,58 +1,101 @@
 // Portfolio projects displayed in the carousel
 const portfolioItems = [
     {
-        title: "Mapping the Metal-Insulator Phase Diagram",
-        description: "Fast-forwarded quantum dynamics paired with error-mitigated experiments to recover DMFT observables on today's hardware.",
-        details: "Using Cartan decomposition to algebraically fast-forward the Anderson impurity model let us keep circuit depths fixed while still reaching long time evolution. Pairing that with zero-noise extrapolation on IBM devices revealed the Mott transition in the Hubbard model, demonstrating a robust hybrid quantum-classical workflow.",
-        tags: ["Quantum Computing", "Error Mitigation", "DMFT"],
-        image: "images/error_mitigation.jpeg",
-        imageAlt: "Visualization of error mitigation on a quantum device",
-        link: {
-            href: "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.5.023198",
-            label: "Read the PRR paper"
-        }
+        title: "A quantum computing approach to efficiently simulating correlated materials",
+        snippet: "Develops a framework for efficient quantum impurity solvers  using compressed circuits with Gaussian states to push DMFT simulations onto near-term quantum hardware.",
+        overview: [
+            "Impurity solvers are a bottleneck for dynamical mean-field theory (DMFT), so we engineer a superposition-of-Gaussian-states basis that captures the interacting ground state while keeping the subspace compact enough to reuse throughout the self-consistency loop.",
+            "We pair the SGS solver with partial compression of Trotterized impurity circuits, restructuring matchgates and controls to cut the two-qubit budget and make 8-qubit experiments feasible on current hardware.",
+            "Hardware data is denoised with positive-semidefinite Gram projections, enabling Matsubara reconstructions, DMFT convergence, and a roadmap toward near-term quantum advantage in materials simulation."
+        ],
+        tags: ["DMFT", "Quantum Computing", "Gaussian States", "Circuit Compression"],
+        image: "impurity.png",
+        imageAlt: "Example figure of a multi-impurity model",
+        links: [
+            {
+                href: "https://arxiv.org/abs/2508.05738",
+                label: "arxiv"
+            }
+        ]
+    },
+    {
+        title: "Error mitigation of shot-to-shot fluctuations in analog quantum simulators",
+        snippet: "Extended the zero-noise extrapolation framework to include quasistatic sources of noise, such as those common in AMO type quantum simulators. Proposed and demonstrated an error mitigation method for long chain trapped ion analog quantum simulators",
+        overview: [
+            "Error mitigation has typically been explored in the context of digital quantum computing, but less so in the context of noisy analog quantum simulators. Such devices do not have the ultimate goal of fault-tolerant universal quantum computing, so will benefit greatly from error mitigation and calibration techniques.",
+            "In this work, we focus on mitigating a source of errors which is dominant in many AMO platforms: shot-to-shot fluctuations of the control Hamiltonian. This type of noise arises from slow drifts in experimental parameters, such as laser intensity or magnetic field fluctuations, which vary between experimental runs but remain constant during a single run. We extend the zero-noise extrapolation framework to account for this type of noise and propose a mitigation strategy that leverages the quasistatic nature of the errors.",
+            "We demonstrate our method on long chain trapped ion experiments, showing that it can accurately recover observables such as magnetization and correlations in the presence of significant shot-to-shot fluctuations. Our approach is general and can be applied to other analog quantum simulation platforms facing similar noise challenges.",
+        ],
+        tags: ["Analog Quantum Simulation", "Error Mitigation", "Zero Noise Extrapolation", "Trapped Ions"],
+        image: "IonTrap.png",
+        imageAlt: "Thermal noise in an ion trap quantum simulator",
+        links: [
+            {
+                href: "https://arxiv.org/abs/2506.16509",
+                label: "Arxiv preprint"
+            }
+        ]
+    },
+    {
+        title: "Dynamical Mean-Field Theory on Noisy Quantum Hardware",
+        snippet: "Exploits Hamiltonian Cartan decomposition and error mitigation to access the long-time dynamics required to compute the 2-site Anderson impurity model on IBM hardware.",
+        overview: [
+            "We focus on understanding and mitigating the impact of noise for hybrid quantum-classical dynamical mean-field theory (DMFT) algorithms, which require long-time evolution to self-consistently compute Green's functions.",
+            "Using our recently developed Cartan decomposition techniques, we fast-forward the Anderson impurity model to reach long evolution times with fixed-depth circuits. This allows us to recover dynamical observables that typically decohere away on near-term quantum devices.",
+            "Focuses on error mitigation, Hamiltonian simulation, hybrid algorithms, and signal processing."
+        ],
+        tags: ["Hamiltonian Simulation", "Error Mitigation", "DMFT"],
+        image: "DMFT_phase_diagram.png",
+        imageAlt: "Phase diagram of the Hubbard model showing the Mott transition",
+        links: [
+            {
+                href: "https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.5.023198",
+                label: "Physical Review Research"
+            }
+        ]
     },
     {
         title: "Fixed-Depth Hamiltonian Simulation",
-        description: "Derived a Cartan decomposition approach for simulating fermionic lattices with a circuit depth independent of evolution time.",
-        details: "The method maps target Hamiltonians into a control sequence that reuses a limited gate alphabet. Minimising the resulting cost function lets us fast-forward certain free-fermion models and provide analytic gradients for variational ansätze.",
+        snippet: "Developed a framework using Cartan Lie algebras to compile fast-forwarding circuits for Hamiltonian dynamics",
+        overview: [
+            "Adapted a method for unitary compiling to generate Hamiltonian simulation fast-forwarding circuits. Produced a Cartan decomposition software package which has been widely used to study short-depth fermionic and spin models, including to generate insight into polynomial depth fast-forwarding circuits for free-fermionic models and non-interacting spin chains.",
+            "Introduces the notion of using dynamical Lie algebras for studying Hamiltonian complexity, and developed a framework for compressing time evolution into short-depth circuits.",
+        ],
         tags: ["Hamiltonian Simulation", "Algorithms", "Cartan Decomposition"],
-        image: "images/cartan.jpg",
-        imageAlt: "Cartan decomposition visual with Lie algebra elements",
-        link: {
-            href: "https://arxiv.org/abs/2104.00728",
-            label: "View the preprint"
-        }
+        image: "Cartan_chart.png",
+        imageAlt: "Lie algebraic structure of Cartan decomposition",
+        links: [
+            {
+                href:"https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.129.070501",
+                label: "Physical Review Letters"
+            },
+            {
+                href: "https://arxiv.org/abs/2104.00728",
+                label: "Preprint"
+            }
+        ]
     },
-    {
-        title: "Resource Optimisation for Noisy Quantum Systems",
-        description: "Explored scheduling strategies and calibration-aware compilation to squeeze more performance out of constrained processors.",
-        details: "I built tooling that ingests live calibration data, ranks qubit layouts, and proposes pulse-level compensation routines. The work feeds directly into ongoing projects on adaptive error mitigation in QuICS.",
-        tags: ["Scheduling", "Noise Mitigation", "Compiler"],
-        image: "images/door.jpeg",
-        imageAlt: "Stylised circuit board illustrating optimisation",
-        link: null
-    },
+    
     {
         title: "Charge Transport in Ultrathin Polymer Films",
-        description: "Demonstrated that water-floated N2200 films retain high electron mobility at nanometre thicknesses.",
-        details: "By combining floating-transfer fabrication with grazing-incidence X-ray scattering we connected microstructure to device performance, enabling transparent, low-material-cost OTFTs for flexible electronics.",
+        snippet: "Demonstrated that water-floated N2200 films retain high electron mobility at ultrathin nanometer-scale thicknesses",
+        overview: [
+            "Combining a floating-transfer fabrication technique with grazing-incidence X-ray scattering connected microstructure to device performance, enabling transparent, low-material-cost OTFTs for flexible electronics.",
+            "The process reduces materials waste while unlocking device geometries that thicker coatings cannot support, pointing toward greener manufacturing pipelines for polymer electronics."
+        ],
         tags: ["Organic Electronics", "Experiment", "Mobility"],
-        image: "images/30mins.jpeg",
-        imageAlt: "Microscope image of polymer thin film",
-        link: {
-            href: "Adv%20Elect%20Materials%20-%202022%20-%20Steckmann%20-%20Ultrathin%20P%20NDI2OD%E2%80%90T2%20Films%20with%20High%20Electron%20Mobility%20in%20Both%20Bottom%E2%80%90Gate%20and.pdf",
-            label: "Download the manuscript"
-        }
-    },
-    {
-        title: "Quantum Error Mitigation Toolkit",
-        description: "Built a modular Python package bundling zero-noise extrapolation, probabilistic error cancellation, and symmetry checks.",
-        details: "The toolkit integrates with Qiskit Runtime and offers declarative recipes for composing mitigation layers. It powers several benchmarking studies for near-term applications run by the QuICS team.",
-        tags: ["Software", "Open Source", "Error Mitigation"],
-        image: "images/error_mitigation.jpeg",
-        imageAlt: "Schematic of quantum error mitigation workflow",
-        link: null
+        image: "basictransistor.png",
+        imageAlt: "OFET device structure",
+        links: [
+            {
+                href: "",
+                label: "Email for a copy"
+            },
+            {
+                href: "https://advanced.onlinelibrary.wiley.com/doi/10.1002/aelm.202101324",
+                label: "Advanced Electronic Materials"
+            }
+        ]
     }
 ];
 
@@ -90,13 +133,15 @@ const createCardMarkup = (item, index) => {
     const imageMarkup = item.image ? `<img src="${item.image}" alt="${item.imageAlt}" class="card-img-top rounded-top">` : '';
 
     return `
-        <article class="portfolio-card card h-100 border-0 shadow-sm" data-card-index="${index}" role="button" tabindex="0" aria-label="View details for ${item.title}">
+        <article class="portfolio-card card h-100 border-0 shadow-sm" data-card-index="${index}">
             ${imageMarkup}
             <div class="card-body d-flex flex-column">
                 <h3 class="card-title h5">${item.title}</h3>
-                <p class="card-text flex-grow-1">${item.description}</p>
+                <p class="card-text flex-grow-1">${item.snippet}</p>
                 <div class="card-tags d-flex flex-wrap mt-3">${tagsMarkup}</div>
-                <span class="stretched-link" aria-hidden="true"></span>
+                <div class="mt-4">
+                    <button type="button" class="btn btn-outline-primary w-100 js-card-more" data-card-index="${index}" aria-label="More about ${item.title}">More</button>
+                </div>
             </div>
         </article>
     `;
@@ -163,6 +208,23 @@ const teardownOverlay = overlay => {
     }
 };
 
+const buildLinksMarkup = (links = []) => {
+    if (!links.length) return '';
+    const linkItems = links.map(link => `
+        <li class="list-inline-item mb-2">
+            <a class="btn btn-sm btn-outline-primary" href="${link.href}" target="_blank" rel="noopener">${link.label}</a>
+        </li>
+    `).join('');
+    return `
+        <div class="mt-4">
+            <h3 class="h6 text-uppercase text-primary fw-semibold mb-3">Additional links</h3>
+            <ul class="list-inline">
+                ${linkItems}
+            </ul>
+        </div>
+    `;
+};
+
 const showProjectOverlay = (item) => {
     if (carouselInstance) {
         carouselInstance.pause();
@@ -176,14 +238,15 @@ const showProjectOverlay = (item) => {
         <article class="portfolio-card expanded shadow-lg">
             <button type="button" class="btn-close position-absolute top-0 end-0 m-3" aria-label="Close project details"></button>
             <div class="card-body">
-                ${item.image ? `<img src="${item.image}" alt="${item.imageAlt}" class="img-fluid rounded mb-3">` : ''}
+                ${item.image ? `<img src="${item.image}" alt="${item.imageAlt}" class="img-fluid rounded mb-4">` : ''}
                 <h2 class="h4">${item.title}</h2>
-                <p class="lead">${item.description}</p>
-                <p>${item.details}</p>
                 <div class="card-tags d-flex flex-wrap mt-4">
                     ${item.tags.map(tag => `<span class="badge bg-primary-subtle text-primary-emphasis me-2 mb-2">${tag}</span>`).join('')}
                 </div>
-                ${item.link ? `<a class="btn btn-outline-primary mt-4" href="${item.link.href}" target="_blank" rel="noopener">${item.link.label}</a>` : ''}
+                <div class="overlay-copy mt-4">
+                    ${item.overview.map(paragraph => `<p class="mb-3">${paragraph}</p>`).join('')}
+                </div>
+                ${buildLinksMarkup(item.links)}
             </div>
         </article>
     `;
@@ -215,17 +278,17 @@ const showProjectOverlay = (item) => {
 const attachCardInteractions = () => {
     if (!carouselInner) return;
 
-    const cards = carouselInner.querySelectorAll('.portfolio-card[data-card-index]');
-    cards.forEach(card => {
-        const index = Number(card.getAttribute('data-card-index'));
+    const moreButtons = carouselInner.querySelectorAll('.js-card-more');
+    moreButtons.forEach(button => {
+        const index = Number(button.getAttribute('data-card-index'));
         const item = portfolioItems[index];
         const handleInteraction = (event) => {
             event.preventDefault();
             showProjectOverlay(item);
         };
 
-        card.addEventListener('click', handleInteraction);
-        card.addEventListener('keydown', (event) => {
+        button.addEventListener('click', handleInteraction);
+        button.addEventListener('keydown', (event) => {
             if (event.key === 'Enter' || event.key === ' ') {
                 handleInteraction(event);
             }
