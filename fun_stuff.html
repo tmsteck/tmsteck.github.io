@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun Stuff - Thomas Steckmann</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .fun-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 50px;
+            border-radius: 0 0 20px 20px;
+        }
+        .fun-header h1 {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .fun-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        .game-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            height: 100%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .game-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        .game-card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .game-card-header h5 {
+            margin: 0;
+            font-weight: bold;
+            font-size: 1.25rem;
+        }
+        .game-card-body {
+            padding: 20px;
+            background: white;
+        }
+        .game-card-body p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .btn-play {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: transform 0.2s ease;
+        }
+        .btn-play:hover {
+            transform: scale(1.05);
+            color: white;
+            text-decoration: none;
+        }
+        .games-grid {
+            margin: 40px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Include Header -->
+    <div id="header"></div>
+
+    <!-- Fun Stuff Header -->
+    <div class="fun-header">
+        <div class="container">
+            <h1>Random Stuff</h1>
+            <p>A selection of joke websites I have created for game night invites. Enjoy!</p>
+        </div>
+    </div>
+
+    <!-- Games Section -->
+    <div class="container games-grid">
+        <div class="row g-4">
+            <!-- Snake Game -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card game-card">
+                    <div class="game-card-header">
+                        <h5>Snake Game</h5>
+                    </div>
+                    <div class="game-card-body">
+                        <a href="snake_game.html" class="btn btn-play">Play Game</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Breakout 2 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card game-card">
+                    <div class="game-card-header">
+                        <h5>Breakout</h5>
+                    </div>
+                    <div class="game-card-body">
+                        <a href="breakout_invite.html" class="btn btn-play">Play Game</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Game -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card game-card">
+                    <div class="game-card-header">
+                        <h5>Card Game</h5>
+                    </div>
+                    <div class="game-card-body">
+                        <p>A fun and definitely possible card game</p>
+                        <a href="card_game.html" class="btn btn-play">Play Game</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flashlight -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card game-card">
+                    <div class="game-card-header">
+                        <h5>Slenderman</h5>
+                    </div>
+                    <div class="game-card-body">
+                        <p>Don't you hate it when you lose the letter in a dark forest filled with spooky inside jokes?</p>
+                        <a href="flashlight_invite.html" class="btn btn-play">Try It</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Login Page -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card game-card">
+                    <div class="game-card-header">
+                        <h5>Login Page</h5>
+                    </div>
+                    <div class="game-card-body">
+                        <p>Please create a login to continue</p>
+                        <a href="Login_page.html" class="btn btn-play">Visit</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sept 23 Invite -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card game-card">
+                    <div class="game-card-header">
+                        <h5>A totally normal invite</h5>
+                    </div>
+                    <div class="game-card-body">
+                        <a href="invite_Sept_23.html" class="btn btn-play">View Invite</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact" class="text-center py-4 mt-5">
+        <div class="container">
+            <p>Get in touch! Email: [first-initial]m[last-initial]teckm@gmail.com</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header').innerHTML = data;
+            });
+    </script>
+</body>
+</html>
