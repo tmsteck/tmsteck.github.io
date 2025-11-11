@@ -9,8 +9,16 @@
 </head>
 <body>
     <div class="game-container">
-        <h1>On no! I dropped the message. Luckily we have this snake to help us find it.</h1>
-        <canvas id="gameCanvas" width="400" height="400"></canvas>
+        <h1>Oh no! I dropped the message. Luckily we have this snake to help us find it.</h1>
+        <div class="game-options">
+            <label for="easy-mode-toggle">Easy Mode:</label>
+            <input type="checkbox" id="easy-mode-toggle">
+            <label for="hard-mode-toggle">Hard Mode:</label>
+            <input type="checkbox" id="hard-mode-toggle">
+            <label for="harder-mode-toggle">Harder Mode:</label>
+            <input type="checkbox" id="harder-mode-toggle">
+        </div>
+        <canvas id="gameCanvas"></canvas>
         <div class="controls">
             <button id="up">▲</button>
             <div>
@@ -18,6 +26,10 @@
                 <button id="down">▼</button>
                 <button id="right">►</button>
             </div>
+        </div>
+        <div id="skip-message" class="hidden">
+            <p>Ok, haha, I get it. Can I have the message now?</p>
+            <button id="skip-button">Yes, show me!</button>
         </div>
         <div id="win-message" class="hidden">
             <h2>You are invited to a game night this Saturday at 5pm. Hope to see you there!</h2>
