@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Game Night Satisfaction Survey™ · Public Results</title>
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="results.css" />
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero__sticker">📊 PUBLIC RESULTS</div>
+    <h1>What Other People Said</h1>
+    <p class="hero__sub">
+      Aggregated, anonymized, and presented without comment.
+      Last updated <span id="updated-at">just now</span>.
+    </p>
+    <p class="hero__fineprint">
+      <a href="./">← back to the survey</a>
+    </p>
+  </header>
+
+  <main class="results" id="results">
+
+    <!-- Loading + empty states -->
+    <section class="card" id="state-loading">
+      <p class="muted">Loading the wreckage…</p>
+    </section>
+    <section class="card hidden" id="state-empty">
+      <h2>No responses yet.</h2>
+      <p class="muted">Be the first to disappoint us. <a href="./">Take the survey →</a></p>
+    </section>
+    <section class="card hidden" id="state-error">
+      <h2>Could not load results.</h2>
+      <p class="muted">Either the database is down or the anon-read policy isn't applied. See <code>schema.sql</code>.</p>
+    </section>
+
+    <!-- Headline metrics -->
+    <section class="card hidden" id="card-headline">
+      <div class="headline">
+        <div class="headline__metric">
+          <div class="headline__num" id="m-count">–</div>
+          <div class="headline__label">submissions</div>
+        </div>
+        <div class="headline__metric">
+          <div class="headline__num" id="m-enjoyment">–</div>
+          <div class="headline__label">avg "enjoyment"</div>
+        </div>
+        <div class="headline__metric">
+          <div class="headline__num" id="m-rage">–</div>
+          <div class="headline__label">avg rage score</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Likert: do you like the people -->
+    <section class="card hidden" id="card-q1">
+      <h2>Do you like the people at game night?</h2>
+      <p class="muted">Reported on a 1–10 scale where, fittingly, both ends are bad.</p>
+      <div class="stat">
+        <div class="stat__big" id="q1-mean">–</div>
+        <div class="stat__caption">mean response</div>
+      </div>
+      <div class="histogram" id="q1-hist"></div>
+    </section>
+
+    <!-- Likert: invite a friend -->
+    <section class="card hidden" id="card-q6">
+      <h2>How likely are you to invite a friend?</h2>
+      <p class="muted">Higher numbers indicate more emphatic warnings.</p>
+      <div class="stat">
+        <div class="stat__big" id="q6-mean">–</div>
+        <div class="stat__caption">mean response</div>
+      </div>
+      <div class="histogram" id="q6-hist"></div>
+    </section>
+
+    <!-- Ratchet: enjoyment -->
+    <section class="card hidden" id="card-q5">
+      <h2>How much do you enjoy game nights?</h2>
+      <p class="muted">From <em>Soul-crushing</em> (0) to <em>Mildly disappointing</em> (100).</p>
+      <div class="stat">
+        <div class="stat__big" id="q5-mean">–</div>
+        <div class="stat__caption">mean response · 100 is the best possible answer</div>
+      </div>
+      <div class="histogram" id="q5-hist"></div>
+    </section>
+
+    <!-- Complexity radio -->
+    <section class="card hidden" id="card-q3">
+      <h2>The games we play are too complex.</h2>
+      <p class="muted">Distribution of agreement.</p>
+      <div class="bars" id="q3-bars"></div>
+    </section>
+
+    <!-- Italian-American (always 100% yes) -->
+    <section class="card hidden" id="card-q4">
+      <h2>All Italian-Americans should have a name that ends in "ario".</h2>
+      <p class="muted">Strong consensus.</p>
+      <div class="bars" id="q4-bars"></div>
+    </section>
+
+    <!-- Focaccia leaderboard -->
+    <section class="card hidden" id="card-focaccia">
+      <h2>Focaccia naming-and-shaming leaderboard</h2>
+      <p class="muted">Names mentioned as <em>least favorite focaccia maker</em>, ranked.</p>
+      <ol class="leaderboard" id="focaccia-list"></ol>
+    </section>
+
+    <!-- Calibration averages -->
+    <section class="card hidden" id="card-calibration">
+      <h2>Calibration averages</h2>
+      <p class="muted">Mean position on the slider, 0–100.</p>
+      <div class="calib" id="calib-list"></div>
+    </section>
+
+    <!-- Rage leaderboard -->
+    <section class="card hidden" id="card-rage">
+      <h2>Most-tortured submitters</h2>
+      <p class="muted">Highest rage scores. Counts validation errors, button drops, and Manage Preferences clicks.</p>
+      <ol class="leaderboard" id="rage-list"></ol>
+    </section>
+
+    <!-- Reformatted feedback wall -->
+    <section class="card hidden" id="card-feedback">
+      <h2>The reformatted-feedback wall</h2>
+      <p class="muted">Every long-form response, after Haiku ran it through the formatter. Tap to reveal what they actually wrote.</p>
+      <div class="feedback-wall" id="feedback-wall"></div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <a href="./">← back to the survey</a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="config.js"></script>
+  <script src="results.js"></script>
+</body>
+</html>

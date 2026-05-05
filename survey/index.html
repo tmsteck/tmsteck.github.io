@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Game Night Satisfaction Survey™</title>
+  <meta name="description" content="Mandatory pre-attendance assessment." />
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="results.css" />
+</head>
+<body>
+
+  <!-- ============================================================ -->
+  <!--                     COOKIE BANNER                            -->
+  <!-- ============================================================ -->
+  <div id="cookie-banner" class="cookie-banner hidden" role="dialog" aria-label="Cookie preferences">
+    <div class="cookie-banner__inner">
+      <div class="cookie-banner__copy">
+        <strong>We use cookies to enhance your experience and quietly judge you.</strong>
+        <ul id="cookie-categories" class="cookie-banner__categories"></ul>
+      </div>
+      <div class="cookie-banner__actions">
+        <button type="button" class="btn btn--ghost" id="cookie-manage">Manage Preferences</button>
+        <button type="button" class="btn btn--primary" id="cookie-accept">Accept All</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="cookie-modal" class="modal hidden" role="dialog" aria-modal="true" aria-label="Cookie preferences detail">
+    <div class="modal__panel">
+      <h2>Cookie Preferences</h2>
+      <p class="muted">Adjust your preferences below. All categories are required.</p>
+      <ul id="cookie-modal-list" class="cookie-modal__list"></ul>
+      <div class="modal__actions">
+        <button type="button" class="btn btn--primary" id="cookie-modal-accept">Accept All</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!--                        HEADER                                -->
+  <!-- ============================================================ -->
+  <header class="hero">
+    <div class="hero__sticker">⚠ MANDATORY ⚠</div>
+    <h1>Game Night Satisfaction Survey™</h1>
+    <p class="hero__sub">
+      Pre-attendance assessment. Your responses will be logged, formatted,
+      and are totally anonymous. Estimated completion time:
+      <span class="strikethrough">2 minutes</span> ????.
+    </p>
+    <p class="hero__fineprint">By scrolling, you consent to forfeiting your cookies to me.</p>
+    <p><a href="results.html" class="skip-link">Already done this once? Skip to what other people said →</a></p>
+  </header>
+
+  <!-- ============================================================ -->
+  <!--                       SECTIONS                               -->
+  <!-- ============================================================ -->
+  <main id="form" class="form">
+
+    <!-- SECTION 1 ------------------------------------------------- -->
+    <section class="section" data-section="1" data-active="true">
+      <div class="section__label">Section 1 of 5 · Attendance Confirmation</div>
+
+      <div class="question" data-qid="q1_like_people">
+        <h2>Do you like the people at game night?</h2>
+        <p class="question__hint">Please answer honestly. We will know.</p>
+        <div class="likert" data-question="q1_like_people"
+             data-low-label="barely tolerate them"
+             data-high-label="actively avoid eye contact"></div>
+      </div>
+
+      <div class="question" data-qid="q2_focaccia">
+        <h2>Who is your <em>least</em> favorite person who makes focaccia bread?</h2>
+        <p class="question__hint">Be specific. First and last name preferred.</p>
+        <input type="text" class="text-input" data-question="q2_focaccia"
+               placeholder="e.g. someone you know" minlength="2" maxlength="120" required />
+        <p class="error hidden" data-error-for="q2_focaccia">A name is required to proceed.</p>
+      </div>
+
+      <div class="section__nav">
+        <button type="button" class="btn btn--next" data-next="1">Next →</button>
+      </div>
+    </section>
+
+    <!-- SECTION 2 ------------------------------------------------- -->
+    <section class="section" data-section="2">
+      <div class="section__label">Section 2 of 5 · Programming Feedback</div>
+
+      <div class="question" data-qid="q3_complexity">
+        <h2>Should the games we play be more complex?</h2>
+        <p class="question__hint">Select the response that best matches your view.</p>
+        <div class="radio-group" data-question="q3_complexity">
+          <label class="radio"><input type="radio" name="q3_complexity" value="more_complex" /> Yes, with pre-game-night homework</label>
+          <label class="radio"><input type="radio" name="q3_complexity" value="longer_rules" /> Yes, the rulebooks should stop bullets</label>
+          <label class="radio"><input type="radio" name="q3_complexity" value="more_expansions" /> Yes, add expansions for everything</label>
+          <label class="radio"><input type="radio" name="q3_complexity" value="more_players" /> Yes, double the player count</label>
+          <label class="radio"><input type="radio" name="q3_complexity" value="setup_phase" /> Yes, and add a 90-minute setup phase</label>
+        </div>
+      </div>
+
+      <div class="question" data-qid="q4_ario">
+        <h2>All Italian-Americans should have a name that ends in “-ario”.</h2>
+        <p class="question__hint">For example, Mario Parker</p>
+        <div class="yesyes" data-question="q4_ario">
+          <button type="button" class="btn btn--yes" data-value="yes">Yes</button>
+          <button type="button" class="btn btn--no-broken" data-value="no">No</button>
+        </div>
+      </div>
+
+      <div class="section__nav">
+        <button type="button" class="btn btn--next" data-next="2">Next →</button>
+      </div>
+    </section>
+
+    <!-- SECTION 3 ------------------------------------------------- -->
+    <section class="section" data-section="3">
+      <div class="section__label">Section 3 of 5 · Enjoyment Metrics</div>
+
+      <div class="question" data-qid="q5_enjoyment">
+        <h2>Fill in the blank: game nights are ________.</h2>
+        <p class="question__hint">Adjustments are <em>final</em>.</p>
+        <div class="ratchet" data-question="q5_enjoyment">
+          <input type="range" min="0" max="100" value="100" class="ratchet__input" />
+          <div class="ratchet__readout">Mildly disappointing</div>
+          <div class="ratchet__ticks">
+            <span style="left: 0%">Soul-crushing</span>
+            <span style="left: 33%">Genuinely upsetting</span>
+            <span style="left: 67%">Vaguely tolerable</span>
+            <span style="left: 100%">Mildly disappointing</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="question" data-qid="q6_invite_friend">
+        <h2>How likely are you to invite a friend to game night?</h2>
+        <p class="question__hint">Be realistic. Friendships are at stake.</p>
+        <div class="likert" data-question="q6_invite_friend"
+             data-low-label="Define 'friend'"
+             data-high-label="Define 'invite'"></div>
+      </div>
+
+      <div class="section__nav">
+        <button type="button" class="btn btn--next" data-next="3">Next →</button>
+      </div>
+    </section>
+
+    <!-- SECTION 4 ------------------------------------------------- -->
+    <section class="section" data-section="4">
+      <div class="section__label">Section 4 of 5 · Calibration Questions (mandatory)</div>
+
+      <div class="question nonsense">
+        <label>How likely is it that you could beat Thomas in a fight?</label>
+        <div class="nonsense__row">
+          <span class="nonsense__end">🤧 coughing baby</span>
+          <input type="range" min="0" max="100" value="50" data-question="ns_thomas_fight" />
+          <span class="nonsense__end">☢️ atom bomb</span>
+        </div>
+      </div>
+      <div class="question nonsense">
+        <label>Rate the snacks at game night.</label>
+        <div class="nonsense__row">
+          <span class="nonsense__end">🥣 soggy Weet-Bix</span>
+          <input type="range" min="0" max="100" value="50" data-question="ns_snacks" />
+          <span class="nonsense__end">🍫 last year's Tim Tams</span>
+        </div>
+      </div>
+      <div class="question nonsense">
+        <label>Favorite chair style.</label>
+        <div class="nonsense__row">
+          <span class="nonsense__end">🪑 whichever one is free</span>
+          <input type="range" min="0" max="100" value="50" data-question="ns_chair" />
+          <span class="nonsense__end">🛋️ beanbag chair</span>
+        </div>
+      </div>
+      <div class="question nonsense">
+        <label>What music should we start playing?</label>
+        <div class="nonsense__row">
+          <span class="nonsense__end">🗡️ Blade (artist or movie)</span>
+          <input type="range" min="0" max="100" value="50" data-question="ns_music" />
+          <span class="nonsense__end">🎺 kazoo solo, distant</span>
+        </div>
+      </div>
+      <div class="question nonsense">
+        <label>Rate the vibes overall.</label>
+        <div class="nonsense__row">
+          <span class="nonsense__end">👨‍🔬 Howard Milchberg</span>
+          <input type="range" min="0" max="100" value="50" data-question="ns_vibes" />
+          <span class="nonsense__end">👨‍🏫 Sankar Das Sarma</span>
+        </div>
+      </div>
+
+      <div class="section__nav">
+        <button type="button" class="btn btn--next" data-next="4">Next →</button>
+      </div>
+    </section>
+
+    <!-- SECTION 5 ------------------------------------------------- -->
+    <section class="section" data-section="5">
+      <div class="section__label">Section 5 of 5 · Final Comments</div>
+
+      <div class="question" data-qid="q8_feedback">
+        <h2>Anything else?</h2>
+        <p class="question__hint">Required. Minimum 100 characters. Your response will be reviewed for clarity before submission.</p>
+        <textarea class="textarea" data-question="q8_feedback" minlength="100" maxlength="2000"
+                  rows="6" placeholder="Be candid. We'll fix it." required></textarea>
+        <div class="textarea__counter"><span data-counter-for="q8_feedback">0</span> / 100 minimum</div>
+        <p class="error hidden" data-error-for="q8_feedback">Please enter at least 100 characters.</p>
+      </div>
+
+      <div class="section__nav">
+        <button type="button" class="btn btn--submit" id="submit-btn">Submit →</button>
+      </div>
+    </section>
+
+    <!-- REVEAL ---------------------------------------------------- -->
+    <section class="section reveal" data-section="6">
+      <div class="reveal__panel">
+        <h2>Submitted.</h2>
+        <p>Thanks for completing the Game Night Satisfaction Survey™.</p>
+        <p>Your responses have been logged, formatted, will be used for the betterment of mankind.</p>
+        <hr />
+        <p class="reveal__details">
+          <strong>Game night is on.</strong><br />
+          You already know where, you already know when<br />, or I guess ask if not.          
+        </p>
+        <p class="muted small">Hope to see you there</p>
+        <p><a href="results.html" class="skip-link" style="color: white;">See what everyone else said →</a></p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================ -->
+  <!--                  REFORMATTER MODAL                           -->
+  <!-- ============================================================ -->
+  <div id="reformat-modal" class="modal hidden" role="dialog" aria-modal="true" aria-label="Confirm formatted feedback">
+    <div class="modal__panel">
+      <h2>We've cleaned up your feedback for the host.</h2>
+      <p class="muted">Please confirm:</p>
+      <blockquote id="reformat-text" class="reformat__quote"></blockquote>
+      <div class="reformat__timer">
+        Auto-submitting in <strong id="reformat-countdown">5</strong>s
+      </div>
+      <div class="modal__actions">
+        <button type="button" class="btn btn--ghost" id="reformat-cancel">Cancel</button>
+        <button type="button" class="btn btn--primary" id="reformat-submit">Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!--                  LOADING OVERLAY                             -->
+  <!-- ============================================================ -->
+  <div id="loading" class="loading hidden">
+    <div class="loading__spinner"></div>
+    <div class="loading__text">Formatting your response for clarity…</div>
+  </div>
+
+  <!-- Supabase client + app -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

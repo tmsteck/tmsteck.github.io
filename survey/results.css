@@ -1,0 +1,246 @@
+/* ============================================================
+   Results page — extends styles.css
+   ============================================================ */
+
+.results {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 16px 80px;
+  display: grid;
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow);
+}
+.card h2 { margin: 0 0 6px; font-size: 18px; }
+.card .muted { font-size: 13px; margin: 0 0 16px; }
+
+.headline {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  text-align: center;
+}
+.headline__metric {
+  background: var(--bg-soft);
+  border-radius: 10px;
+  padding: 16px 8px;
+}
+.headline__num {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1.1;
+}
+.headline__label {
+  font-size: 12px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-top: 4px;
+}
+
+.stat {
+  text-align: center;
+  margin: 8px 0 18px;
+}
+.stat__big {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.stat__caption {
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.histogram {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 4px;
+  align-items: end;
+  height: 130px;
+  margin-top: 8px;
+}
+.histogram__bar {
+  background: var(--accent-soft);
+  border: 1px solid var(--accent);
+  border-radius: 4px 4px 0 0;
+  position: relative;
+  min-height: 2px;
+  transition: height .3s ease;
+}
+.histogram__bar::after {
+  content: attr(data-count);
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+}
+.histogram__labels {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 4px;
+  font-size: 11px;
+  color: var(--ink-soft);
+  text-align: center;
+  margin-top: 4px;
+}
+
+.bars {
+  display: grid;
+  gap: 6px;
+}
+.bars__row {
+  display: grid;
+  grid-template-columns: 200px 1fr 40px;
+  gap: 8px;
+  align-items: center;
+  font-size: 13px;
+}
+.bars__label { color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bars__track {
+  background: var(--bg-soft);
+  border-radius: 6px;
+  height: 18px;
+  overflow: hidden;
+}
+.bars__fill {
+  background: var(--accent);
+  height: 100%;
+  transition: width .4s ease;
+}
+.bars__count {
+  font-size: 12px;
+  color: var(--ink-soft);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 500px) {
+  .bars__row { grid-template-columns: 130px 1fr 32px; font-size: 12px; }
+}
+
+.leaderboard {
+  margin: 0;
+  padding-left: 22px;
+  display: grid;
+  gap: 4px;
+}
+.leaderboard li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 6px 10px;
+  background: var(--bg-soft);
+  border-radius: 6px;
+  font-size: 14px;
+}
+.leaderboard li .lb-name { font-weight: 600; }
+.leaderboard li .lb-count {
+  color: var(--accent);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.calib {
+  display: grid;
+  gap: 12px;
+}
+.calib__row {
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 6px;
+}
+.calib__head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.calib__head strong { color: var(--ink); }
+.calib__bar {
+  position: relative;
+  background: linear-gradient(to right, #fbe1d3, #c2410c);
+  height: 14px;
+  border-radius: 7px;
+}
+.calib__marker {
+  position: absolute;
+  top: -3px;
+  width: 4px;
+  height: 20px;
+  background: var(--ink);
+  border-radius: 2px;
+  transform: translateX(-50%);
+}
+.calib__ends {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--ink-soft);
+}
+
+.feedback-wall {
+  display: grid;
+  gap: 10px;
+  max-height: 600px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+.feedback-item {
+  background: var(--bg-soft);
+  border-left: 3px solid var(--warn);
+  border-radius: 4px;
+  padding: 10px 12px;
+  font-style: italic;
+  font-size: 14px;
+}
+.feedback-item details { font-style: normal; margin-top: 8px; }
+.feedback-item summary {
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--ink-soft);
+  user-select: none;
+}
+.feedback-item__original {
+  margin-top: 6px;
+  padding: 8px 10px;
+  background: white;
+  border-radius: 4px;
+  font-size: 13px;
+  color: var(--ink);
+  white-space: pre-wrap;
+}
+.feedback-item__date {
+  font-size: 11px;
+  color: var(--ink-soft);
+  font-style: normal;
+  margin-top: 6px;
+  text-align: right;
+}
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.footer a { color: var(--accent); }
+
+/* "Skip to results" link in survey hero */
+.skip-link {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--ink-soft);
+  text-decoration: underline;
+}
+.skip-link:hover { color: var(--accent); }
